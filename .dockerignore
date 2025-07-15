@@ -1,0 +1,32 @@
+# Git and RStudio files
+.git
+.gitignore
+.Rproj
+.Rproj.user/
+
+# ignore renv library - this is rebuilt inside the container
+renv/library/
+
+# ignore raw data and results
+/data/rawfiles/raw/
+/data/expfiles/
+/results/
+
+# ignore R history file
+.Rhistory
+.DS_Store
+
+# ignore any other files
+*.csv
+*.zip
+*.xlsx
+*.pdf
+
+# ignore some scripts
+/1_simulating_raw_data_matrices.R
+/1_preparing_raw_data_matrices.R
+/2_correcting_batch_effects.R
+/3_aggregating_alllevels2protein.R
+/4_batch_effect_diagnosis.R
+/x_tables.R
+/x_figures.R
