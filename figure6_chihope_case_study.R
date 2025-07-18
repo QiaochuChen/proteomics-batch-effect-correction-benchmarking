@@ -23,7 +23,6 @@ rm(list = ls())
 ## global ---------------------
 if (!interactive()) pboptions(type = "none")
 options(mc.cores = 4)
-# dir2work <- "/app/results"
 dir2work <- "./results"
 if (!dir.exists(dir2work)) dir.create(dir2work)
 dir2save1 <- paste(dir2work, "/figures", sep = "")
@@ -210,7 +209,7 @@ sub_umap_final <- rbindlist(umap_objs)
 
 sub_umap_tmp <- sub_umap_final %>%
   # filter(!library %in% c("ExpJ1", "ExpB19")) %>%
-  filter(correct_method %in% "ruv_loess") %>%
+  # filter(correct_method %in% "ruv_loess") %>%
   mutate_at("correct_method", ~ dictLabelsCorrectMethods[.]) %>%
   mutate_at("correct_method", ~ ifelse(is.na(.), "Uncorrected", paste(., "corrected"))) %>%
   mutate_at("correct_method", ~ factor(., levels = c("Uncorrected", paste(dictLabelsCorrectMethods, "corrected"))))

@@ -23,7 +23,6 @@ rm(list = ls())
 ## global ---------------------
 if (!interactive()) pboptions(type = "none")
 options(mc.cores = 4)
-# dir2work <- "/app/results"
 dir2work <- "./results"
 if (!dir.exists(dir2work)) dir.create(dir2work)
 dir2save1 <- paste(dir2work, "/figures", sep = "")
@@ -90,6 +89,14 @@ sub_cv_stat <- sub_cv_tmp %>%
 p_cv_box <- ggplot(sub_cv_tmp, aes(x = label, y = cv)) +
   geom_boxplot(aes(fill = label), width = .7,
                position = position_dodge(width = .8)) +
+  geom_signif(comparisons = list(c("Precursor-corrected", "Peptide-corrected"),
+                                 c("Precursor-corrected", "Protein-corrected"),
+                                 c("Peptide-corrected", "Protein-corrected")),
+              map_signif_level = TRUE,
+              step_increase = .1,
+              tip_length = .01,
+              textsize = 4,
+              test = "t.test") +
   theme_bw() +
   theme(legend.position = "top",
         legend.title = element_text(size = 20),
@@ -104,7 +111,7 @@ p_cv_box <- ggplot(sub_cv_tmp, aes(x = label, y = cv)) +
         panel.grid.minor.y = element_blank(),
         plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
   scale_fill_manual(values = dictColorsLevel) +
-  scale_y_continuous(n.breaks = 10, name = "CV") +
+  scale_y_continuous(n.breaks = 10, limits = c(0, 6), name = "CV") +
   facet_wrap( ~ scenario, ncol = 4)
 
 figure3a <- p_cv_box

@@ -23,7 +23,6 @@ rm(list = ls())
 ## global ---------------------
 if (!interactive()) pboptions(type = "none")
 options(mc.cores = 4)
-# dir2work <- "/app/results"
 dir2work <- "./results"
 if (!dir.exists(dir2work)) dir.create(dir2work)
 dir2save1 <- paste(dir2work, "/figures", sep = "")
@@ -101,6 +100,14 @@ sub_snr_stat <- sub_snr_tmp %>%
 p_snr_box <- ggplot(sub_snr_tmp, aes(x = label, y = snr)) +
   geom_boxplot(aes(fill = label), width = .7,
                position = position_dodge(width = .8)) +
+  geom_signif(comparisons = list(c("Precursor-corrected", "Peptide-corrected"),
+                                 c("Precursor-corrected", "Protein-corrected"),
+                                 c("Peptide-corrected", "Protein-corrected")),
+              map_signif_level = TRUE,
+              step_increase = .1,
+              tip_length = .01,
+              textsize = 4,
+              test = "t.test") +
   theme_bw() +
   theme(legend.position = "none",
         strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
@@ -111,7 +118,7 @@ p_snr_box <- ggplot(sub_snr_tmp, aes(x = label, y = snr)) +
         axis.text.x = element_text(size = 12, angle = 45, hjust = 1, vjust = 1),
         plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
   scale_fill_manual(values = dictColorsLevel, name = "Correction level") +
-  scale_y_continuous(name = "SNR") +
+  scale_y_continuous(name = "SNR", limits = c(-1, 40)) +
   facet_wrap( ~ scenario);p_snr_box
 
 figure4a <- p_snr_box
@@ -151,7 +158,7 @@ p_snr_box <- ggplot(sub_snr_tmp, aes(x = label, y = snr)) +
         panel.grid.minor.y = element_blank(),
         plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
   scale_fill_manual(values = dictColorsLevel) +
-  scale_y_continuous(n.breaks = 5, name = "SNR") +
+  scale_y_continuous(n.breaks = 5,  name = "SNR") +
   facet_wrap(~ correct_method, nrow = 1);p_snr_box
 
 suppl6a <- p_snr_box
@@ -294,7 +301,7 @@ ggsave("./results/figures/extended_figure7.pdf",
        supp7, width = 12, height = 18)
 
 
-## supplementary figure 8 ------------------------
+## supplementary figure 8a ------------------------
 sub_pca_tmp <- sub_pca_final %>%
   filter(!correct_method %in% "log") %>%
   filter(!correct_method %in% "normae") %>%
@@ -375,10 +382,78 @@ p_pca_list <- mclapply(unique(sub_pca_tmp$scenario), function(scenario_id) {
 p_pca_all <- plot_grid(plotlist = p_pca_list, ncol = 2)
 p_pca_final <- plot_grid(p_title, p_pca_all, nrow = 2, rel_heights = c(.1, 1))
 lg_pca1 <- plot_grid(get_legend(lg_pca_shape1), get_legend(lg_pca_color1), ncol = 2)
-supp8 <- plot_grid(p_pca_final, lg_pca1, nrow = 2, rel_heights = c(1, .07))
+supp8a <- plot_grid(p_pca_final, lg_pca1, nrow = 2, rel_heights = c(1, .07))
+
+
+## supplementary figure 8b -----------------------------------
+sub_pca_tmp <- sub_pca_final %>%
+  filter(!correct_method %in% "log") %>%
+  filter(!correct_method %in% "normae") %>%
+  filter(data_level %in% "protein") %>%
+  filter(quant_method %in% "maxlfq") %>%
+  filter(dataset %in% "simulated") %>%
+  filter(scenario %in% "confounded") %>%
+  mutate(title = sprintf("%s\n(%s-corrected)", quant_method, Hmisc::capitalize(correct_level))) %>%
+  mutate_at("scenario", ~ dictLabelsScenario[paste(dataset, ., sep = "_")]) %>%
+  mutate_at("correct_method", ~ dictLabelsCorrectMethods[.]) %>%
+  mutate(label = sprintf("%s\n(SNR = %.2f)", correct_method, snr)) %>%
+  mutate_at("batch", ~ dictLabelsBatch[.]) %>%
+  mutate_at("sample", ~ factor(Hmisc::capitalize(.),
+                               levels = c("D5", "D6", "F7", "M8",
+                                          "Group1", "Group2", "Group3"))) %>%
+  mutate_at("quant_method", ~ factor(., levels = c("ibaq", "toppep3", "maxlfq"))) %>%
+  mutate_at("correct_level", ~ factor(., levels = c("precursor", "peptide", "protein")))
+
+p_box3 <- ggplot(sub_pca_tmp, aes(x = correct_level, y = PC1)) +
+  geom_boxplot(aes(fill = sample)) +
+  theme_bw() +
+  theme(legend.position = "none",
+        legend.title = element_text(size = 20),
+        legend.text = element_text(size = 16),
+        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        strip.background = element_rect(fill = "white"),
+        axis.title.y = element_text(size = 20),
+        axis.title.x = element_blank(),
+        axis.text.y = element_text(size = 16),
+        axis.text.x = element_text(size = 16),
+        panel.spacing = unit(1.5, "lines"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
+  scale_fill_manual(values = dictColorsSample) +
+  scale_y_continuous(n.breaks = 5, name = "PC1") +
+  facet_wrap(~ scenario + correct_level, scales = "free", nrow = 1);p_box3
+
+p_box4 <- ggplot(sub_pca_tmp, aes(x = correct_level, y = PC2)) +
+  geom_boxplot(aes(fill = sample)) +
+  theme_bw() +
+  theme(legend.position = "none",
+        legend.title = element_text(size = 20),
+        legend.text = element_text(size = 16),
+        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        strip.background = element_rect(fill = "white"),
+        axis.title.y = element_text(size = 20),
+        axis.title.x = element_blank(),
+        axis.text.y = element_text(size = 16),
+        axis.text.x = element_text(size = 16),
+        panel.spacing = unit(1.5, "lines"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
+  scale_fill_manual(values = dictColorsSample) +
+  scale_y_continuous(n.breaks = 5, name = "PC2") +
+  facet_wrap(~ scenario + correct_level, scales = "free", nrow = 1);p_box4
+
+supp8b <- plot_grid(p_box3, p_box4,nrow = 1)
+
+
+## combined supplementary figure8 -----------------------------------
+supp8 <- plot_grid(supp8a, supp8b,
+                   nrow = 2, rel_heights = c(1, .3),
+                   labels = c("a", "b"), label_size = 24)
 
 ggsave("./results/figures/extended_figure8.pdf",
-       supp8, width = 16, height = 16)
+       supp8, width = 16, height = 20)
 
 
 ## figure 4c -----------------------------------

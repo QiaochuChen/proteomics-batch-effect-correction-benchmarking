@@ -23,7 +23,6 @@ rm(list = ls())
 ## global ---------------------
 if (!interactive()) pboptions(type = "none")
 options(mc.cores = 4)
-# dir2work <- "/app/results"
 dir2work <- "./results"
 if (!dir.exists(dir2work)) dir.create(dir2work)
 dir2save1 <- paste(dir2work, "/figures", sep = "")
