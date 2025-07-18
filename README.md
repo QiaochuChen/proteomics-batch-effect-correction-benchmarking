@@ -5,18 +5,13 @@ This Docker image provides a pre-configured R environment for the proteomics bat
 ## Quick Start
 To use this Docker image, please ensure you have Docker installed.
 
-### Build the Docker Image:
-Open your terminal in the root directory of your proteomics-batch-effect-correction-benchmarking project (i.e., the directory containing Dockerfile and renv.lock), then run the following command:
-
-`docker build -t proteomics-batch-effect-correction-benchmarking .`
-
-This command builds a Docker image named proteomics-batch-effect-correction-benchmarking based on the Dockerfile. The build process may take some time as it downloads the base image, installs system dependencies, and R packages.
+### Pull the Docker Image:
+run the following command:
+`docker pull qiaochuchen/proteomics-batch-effect-correction-benchmarking:v1.0`
 
 ### Run the Docker Container:
-Once the build is complete, you can run the container using the following command:
-
+run the following command:
 `docker run --rm proteomics-batch-effect-correction-benchmarking:v1.0 test.R`
-
 
 ## Technical Details
 
