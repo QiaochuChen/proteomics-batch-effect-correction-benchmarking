@@ -38,18 +38,3 @@ fgsea: For fgsea package compilation issues, the C++14 standard is enforced (ENV
 
 ### Performance Optimization
 Parallelism Limit: By default, the number of OpenBLAS threads in the container is limited to 8 (ENV OPENBLAS_NUM_THREADS=8) to optimize computational resource usage. You can adjust this value as needed.
-
-
-### Project Structure
-To ensure the image builds and runs correctly, your local project directory (proteomics-batch-effect-correction-benchmarking) should contain the following key files and directories:
-
-proteomics-batch-effect-correction-benchmarking/
-├── Dockerfile
-├── renv.lock
-├── .Rprofile
-├── renv/
-│   └── activate.R
-├── utils/
-│   └── gPCA_1.0.tar.gz  # Ensure this path is correct and corresponds to COPY ./utils/gPCA_1.0.tar.gz . in Dockerfile
-├── test.R             # Your default R script
-└── # Other R scripts, data, analysis files, etc...
