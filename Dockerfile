@@ -1,4 +1,5 @@
-# Dockerfile using renv
+## proteomics-batch-effect-correction-benchmarking
+## v1.0
 
 # 1. 选择一个基础镜像
 # 推荐使用 rocker 项目提供的镜像
@@ -29,7 +30,7 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
 RUN R -e "install.packages('renv')"
 
 # 4. 拷贝 renv 相关文件到工作目录
-WORKDIR /app
+WORKDIR /proteomics-batch-effect-correction-benchmarking
 COPY renv.lock .
 COPY .Rprofile .
 COPY renv/activate.R renv/
