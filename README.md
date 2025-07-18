@@ -6,7 +6,7 @@ This Docker image provides a pre-configured R environment for the proteomics bat
 To use this Docker image, please ensure you have Docker installed.
 
 ### Pull the Docker Image:
-run the following command:
+run the following command (which should be completed within a few minutes):
 `docker pull qiaochuchen/proteomics-batch-effect-correction-benchmarking:v1.0`
 
 ### Run the Docker Container:
