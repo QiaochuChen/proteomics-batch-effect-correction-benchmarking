@@ -1,5 +1,5 @@
 # proteomics-batch-effect-correction-benchmarking
-# v2.0
+# v1.0
 This Docker image provides a pre-configured R environment for the proteomics batch effect correction benchmarking project. It includes all necessary system dependencies and R packages to ensure consistency and reproducibility in your analysis environment.
 
 ## Quick Start
