@@ -5,3 +5,5 @@ renv/
 x_figures.R
 x_tables.R
 .DS_Store
+.Rhistory
+.Rprofile
