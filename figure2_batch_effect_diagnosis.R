@@ -220,7 +220,7 @@ sub_cv_tmp <- cv_objs_tmp %>%
 
 sub_cv_stat <- sub_cv_tmp %>%
   filter(!(is.na(cv) | is.infinite(cv))) %>%
-  group_by(data_level, scenario) %>%
+  group_by(data_level, scenario, correct_method) %>%
   summarise(cv_mean = mean(cv), cv_sd = sd(cv),
             feature_n = length(unique(feature)),
             total_n = length(cv))
@@ -256,6 +256,13 @@ sub_cv_tmp <- cv_objs_tmp %>%
   filter(correct_method %in% "log") %>%
   mutate_at("scenario", ~ dictLabelsScenario[paste(dataset, ., sep = "_")]) %>%
   mutate_at("data_level", ~ factor(., levels = c("precursor", "peptide", "protein")))
+
+sub_cv_stat <- sub_cv_tmp %>%
+  filter(!(is.na(cv) | is.infinite(cv))) %>%
+  group_by(data_level, scenario) %>%
+  summarise(cv_mean = mean(cv), cv_sd = sd(cv),
+            feature_n = length(unique(feature)),
+            total_n = length(cv))
 
 p_cv_box <- ggplot(sub_cv_tmp, aes(x = data_level, y = cv)) +
   geom_boxplot(aes(fill = data_level), width = .7,

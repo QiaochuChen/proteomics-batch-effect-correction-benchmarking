@@ -89,7 +89,7 @@ df_mcc_rsquare <- fread("./results/tables/mcc_rsquare_chihope.csv")
 df_mcc_rsquare_revised <- df_mcc_rsquare %>%
   mutate_at("correct_method", ~ ifelse(grepl("log", .), "Uncorrected", dictLabelsCorrectMethods[.]))
 
-write.xlsx(df_mcc_rsquare_revised, "./results/tables/6-ChiHOPE-source_data.xlsx")
+write.xlsx(df_mcc_rsquare_revised, "./results/tables/7-ChiHOPE-source_data.xlsx")
 
 
 ## supplementary figure 11-------------------------
@@ -414,10 +414,13 @@ df_test4 <- predicted_tables %>%
                                        "Uncorrected", .)) %>%
   mutate_at("correct_method", ~ ifelse(. %in% c("Negative Control", "Uncorrected"),
                                        ., paste(., "corrected"))) %>%
+  filter(correct_method %in% df_test1$correct_method) %>%
   mutate_at("correct_method", ~ factor(., levels = df_test1$correct_method))
 
 df_test4 <- df_test4 %>%
   filter(correct_method %in% c("Uncorrected", "Negative Control") | grepl("LOESS", correct_method))
+
+write.xlsx(df_test4, "./results/tables/7-ChiHOPE-TestReference-source_data.xlsx")
 
 p_tmp <- ggplot(df_test4, aes(x = Age, y = prediction_age)) +
   geom_point(aes(color = correct_method), size = .8, alpha = .5, shape = 16) +
@@ -491,6 +494,11 @@ sp_figure13a <- p_mcc_box
 df_test5 <- df_test %>%
   filter(! correct_method %in% c("Uncorrected", "Negative Control", "LOESS corrected")) %>%
   mutate(group = ifelse(grepl("LOESS", correct_method), "LOESS-dependent", "LOESS-independent"))
+
+sub_stat <- df_test5 %>%
+  group_by(label, correct_method) %>%
+  summarise(snr_mean = mean(snr),snr_sd = sd(snr), snr_median = median(snr),
+            n_total = length(snr))
 
 p_rsquare_box <- ggplot(df_test5, aes(x = group, y = r_square)) +
   geom_boxplot(aes(fill = group), width = .7, alpha = .8,

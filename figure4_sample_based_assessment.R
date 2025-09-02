@@ -165,8 +165,9 @@ sub_snr_tmp <- sub_pca_final %>%
   mutate_at("label", ~ factor(., levels = names(dictColorsLevel)))
 
 sub_snr_stat <- sub_snr_tmp %>%
-  group_by(correct_method, label) %>%
-  summarise(snr_mean = mean(snr), snr_sd = sd(snr), snr_median = median(snr))
+  group_by(label, correct_method) %>%
+  summarise(snr_mean = mean(snr),snr_sd = sd(snr), snr_median = median(snr),
+            n_total = length(snr))
 
 p_snr_box <- ggplot(sub_snr_tmp, aes(x = label, y = snr)) +
   geom_boxplot(aes(fill = label), width = .7,
@@ -204,8 +205,9 @@ sub_snr_tmp <- sub_pca_final %>%
   mutate_at("label", ~ factor(., levels = names(dictColorsLevel)))
 
 sub_snr_stat <- sub_snr_tmp %>%
-  group_by(quant_method, scenario) %>%
-  summarise(snr_mean = mean(snr), mcc_sd = sd(snr))
+  group_by(scenario, quant_method, label) %>%
+  summarise(snr_mean = mean(snr),snr_sd = sd(snr), snr_median = median(snr),
+            n_total = length(snr))
 
 p_snr_box <- ggplot(sub_snr_tmp, aes(x = label, y = snr)) +
   geom_boxplot(aes(fill = label), width = .7,
@@ -356,8 +358,9 @@ lg_pca_shape1 <- ggplot(sub_pca_tmp %>% filter(grepl("Quartet", scenario))) +
   labs(shape = "Batch") +
   theme_bw() +
   theme(legend.direction = "horizontal",
-        legend.title = element_text(size = 14),
-        legend.text = element_text(size = 12))
+        legend.title = element_text(size = 10),
+        legend.text = element_text(size = 8)) +
+  guides(shape = guide_legend(nrow = 1))
 
 lg_pca_color1 <- ggplot(sub_pca_tmp %>% filter(grepl("Quartet", scenario))) +
   geom_point(aes(x = PC1, y = PC2, color = sample), size = 4) +
@@ -365,8 +368,26 @@ lg_pca_color1 <- ggplot(sub_pca_tmp %>% filter(grepl("Quartet", scenario))) +
   labs(color = "Sample") +
   theme_bw() +
   theme(legend.direction = "horizontal",
-        legend.title = element_text(size = 14),
-        legend.text = element_text(size = 12))
+        legend.title = element_text(size = 10),
+        legend.text = element_text(size = 8))
+
+lg_pca_shape2 <- ggplot(sub_pca_tmp %>% filter(grepl("Simulated", scenario))) +
+  geom_point(aes(x = PC1, y = PC2, shape = batch), size = 4) +
+  scale_shape_manual(values = dictShapesBatch) +
+  labs(shape = "Batch") +
+  theme_bw() +
+  theme(legend.direction = "horizontal",
+        legend.title = element_text(size = 10),
+        legend.text = element_text(size = 8))
+
+lg_pca_color2 <- ggplot(sub_pca_tmp %>% filter(grepl("Simulated", scenario))) +
+  geom_point(aes(x = PC1, y = PC2, color = sample), size = 4) +
+  scale_color_manual(values = dictColorsSample) +
+  labs(color = "Sample") +
+  theme_bw() +
+  theme(legend.direction = "horizontal",
+        legend.title = element_text(size = 10),
+        legend.text = element_text(size = 8))
 
 p_title <- ggplot(sub_pca_tmp) +
   theme_classic() +
@@ -415,7 +436,8 @@ p_pca_list <- mclapply(unique(sub_pca_tmp$scenario), function(scenario_id) {
 
 p_pca_all <- plot_grid(plotlist = p_pca_list, ncol = 2)
 p_pca_final <- plot_grid(p_title, p_pca_all, nrow = 2, rel_heights = c(.11, 1))
-lg_pca1 <- plot_grid(get_legend(lg_pca_shape1), get_legend(lg_pca_color1), ncol = 2)
+lg_pca1 <- plot_grid(get_legend(lg_pca_shape1), get_legend(lg_pca_color1), 
+                     get_legend(lg_pca_shape2), get_legend(lg_pca_color2), ncol = 2)
 supp8a <- plot_grid(p_pca_final, lg_pca1, nrow = 2, rel_heights = c(1, .07))
 
 
@@ -437,6 +459,11 @@ sub_pca_tmp <- sub_pca_final %>%
                                           "Group1", "Group2", "Group3"))) %>%
   mutate_at("quant_method", ~ factor(., levels = c("ibaq", "toppep3", "maxlfq"))) %>%
   mutate_at("correct_level", ~ factor(., levels = c("precursor", "peptide", "protein")))
+
+sub_pca_stat <- sub_pca_tmp %>%
+  ungroup() %>%
+  group_by(correct_level, sample) %>%
+  summarise(n_total = length(unique(library)))
 
 p_box3 <- ggplot(sub_pca_tmp, aes(x = correct_level, y = PC1)) +
   geom_boxplot(aes(fill = sample)) +
@@ -630,6 +657,10 @@ sub_pvca_tmp <- sub_pvca_final %>%
   mutate_at("quant_method", ~ ifelse(. %in% "", "ibaq_maxlfq_toppep3", .)) %>%
   tidyr::separate_rows(quant_method, sep = "_") %>%
   mutate_at("quant_method", ~ factor(., levels = c("ibaq", "toppep3", "maxlfq")))
+
+sub_pvca_stat <- sub_pvca_tmp %>%
+  group_by(correct_level, scenario, label2) %>%
+  summarise(n_total = length(unique(correct_method)))
 
 p_list <- pblapply(unique(sub_pvca_tmp$scenario), function(scenario_id) {
   
