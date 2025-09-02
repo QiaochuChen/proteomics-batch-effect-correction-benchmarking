@@ -1,0 +1,291 @@
+nohup: ignoring input
+- The project is out-of-sync -- use `renv::status()` for details.
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:data.table’:
+
+    between, first, last
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: mgcv
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+Loading required package: genefilter
+Loading required package: BiocParallel
+Loading required package: Rcpp
+Loading required package: RSpectra
+Loading required package: progress
+
+[2025-07-08 14:34:59.115593] correcting /app/data/expfiles/balanced/peptide/ibaq/expdata_log.csv
+[2025-07-08 14:35:09.164451] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/expdata_ratio.csv
+[2025-07-08 14:35:13.520711] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/expdata_median.csv
+[2025-07-08 14:35:15.336978] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/expdata_combat.csv
+[2025-07-08 14:35:16.010373] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/expdata_harmony.csv
+[2025-07-08 14:36:02.298623] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:38:17.224726] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/expdata_ruv.csv
+[2025-07-08 14:38:17.22625] Successfully corrected.
+
+[2025-07-08 14:38:17.226796] correcting /app/data/expfiles/balanced/peptide/maxlfq/expdata_log.csv
+[2025-07-08 14:38:27.810664] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/expdata_ratio.csv
+[2025-07-08 14:38:32.403589] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/expdata_median.csv
+[2025-07-08 14:38:33.120042] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/expdata_harmony.csv
+[2025-07-08 14:38:37.498363] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/expdata_combat.csv
+[2025-07-08 14:39:39.746295] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:41:39.822269] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/expdata_ruv.csv
+[2025-07-08 14:41:39.822836] Successfully corrected.
+
+[2025-07-08 14:41:39.822959] correcting /app/data/expfiles/balanced/peptide/toppep3/expdata_log.csv
+[2025-07-08 14:41:52.544233] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/expdata_ratio.csv
+[2025-07-08 14:41:55.067762] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/expdata_harmony.csv
+[2025-07-08 14:41:55.330166] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/expdata_median.csv
+[2025-07-08 14:41:57.430338] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/expdata_combat.csv
+[2025-07-08 14:43:12.115374] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:44:52.787617] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/expdata_ruv.csv
+[2025-07-08 14:44:52.788011] Successfully corrected.
+
+[2025-07-08 14:44:52.788142] correcting /app/data/expfiles/balanced/precursor/expdata_log.csv
+[2025-07-08 14:45:05.572359] Successfully saved: /app/data/expfiles/balanced/precursor/expdata_ratio.csv
+[2025-07-08 14:45:11.818821] Successfully saved: /app/data/expfiles/balanced/precursor/expdata_harmony.csv
+[2025-07-08 14:45:12.378389] Successfully saved: /app/data/expfiles/balanced/precursor/expdata_median.csv
+[2025-07-08 14:45:13.842052] Successfully saved: /app/data/expfiles/balanced/precursor/expdata_combat.csv
+[2025-07-08 14:46:32.550886] Successfully saved: /app/data/expfiles/balanced/precursor/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:49:21.467108] Successfully saved: /app/data/expfiles/balanced/precursor/expdata_ruv.csv
+[2025-07-08 14:49:21.467488] Successfully corrected.
+
+[2025-07-08 14:49:21.467609] correcting /app/data/expfiles/balanced/protein/ibaq/expdata_log.csv
+[2025-07-08 14:49:25.272832] Successfully saved: /app/data/expfiles/balanced/protein/ibaq/expdata_median.csv
+[2025-07-08 14:49:25.363315] Successfully saved: /app/data/expfiles/balanced/protein/ibaq/expdata_ratio.csv
+[2025-07-08 14:49:25.748309] Successfully saved: /app/data/expfiles/balanced/protein/ibaq/expdata_harmony.csv
+[2025-07-08 14:49:31.765797] Successfully saved: /app/data/expfiles/balanced/protein/ibaq/expdata_combat.csv
+[2025-07-08 14:49:31.775618] Successfully saved: /app/data/expfiles/balanced/protein/ibaq/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:49:35.678469] Successfully saved: /app/data/expfiles/balanced/protein/ibaq/expdata_ruv.csv
+[2025-07-08 14:49:35.678827] Successfully corrected.
+
+[2025-07-08 14:49:35.678919] correcting /app/data/expfiles/balanced/protein/maxlfq/expdata_log.csv
+[2025-07-08 14:49:38.499313] Successfully saved: /app/data/expfiles/balanced/protein/maxlfq/expdata_harmony.csv
+[2025-07-08 14:49:39.329886] Successfully saved: /app/data/expfiles/balanced/protein/maxlfq/expdata_ratio.csv
+[2025-07-08 14:49:40.095635] Successfully saved: /app/data/expfiles/balanced/protein/maxlfq/expdata_median.csv
+[2025-07-08 14:49:42.867309] Successfully saved: /app/data/expfiles/balanced/protein/maxlfq/expdata_combat.csv
+[2025-07-08 14:49:51.004906] Successfully saved: /app/data/expfiles/balanced/protein/maxlfq/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:49:59.485733] Successfully saved: /app/data/expfiles/balanced/protein/maxlfq/expdata_ruv.csv
+[2025-07-08 14:49:59.486399] Successfully corrected.
+
+[2025-07-08 14:49:59.486587] correcting /app/data/expfiles/balanced/protein/toppep3/expdata_log.csv
+[2025-07-08 14:50:03.371135] Successfully saved: /app/data/expfiles/balanced/protein/toppep3/expdata_harmony.csv
+[2025-07-08 14:50:03.869081] Successfully saved: /app/data/expfiles/balanced/protein/toppep3/expdata_median.csv
+[2025-07-08 14:50:04.103284] Successfully saved: /app/data/expfiles/balanced/protein/toppep3/expdata_ratio.csv
+[2025-07-08 14:50:06.807196] Successfully saved: /app/data/expfiles/balanced/protein/toppep3/expdata_combat.csv
+[2025-07-08 14:50:08.793677] Successfully saved: /app/data/expfiles/balanced/protein/toppep3/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:50:10.738209] Successfully saved: /app/data/expfiles/balanced/protein/toppep3/expdata_ruv.csv
+[2025-07-08 14:50:10.738576] Successfully corrected.
+
+[2025-07-08 14:50:10.738681] correcting /app/data/expfiles/confounded/peptide/ibaq/expdata_log.csv
+[2025-07-08 14:50:17.886665] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/expdata_harmony.csv
+[2025-07-08 14:50:18.140405] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/expdata_ratio.csv
+[2025-07-08 14:50:23.193841] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/expdata_median.csv
+[2025-07-08 14:50:25.587726] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/expdata_combat.csv
+[2025-07-08 14:50:58.614573] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:51:41.018771] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/expdata_ruv.csv
+[2025-07-08 14:51:41.019143] Successfully corrected.
+
+[2025-07-08 14:51:41.019249] correcting /app/data/expfiles/confounded/peptide/maxlfq/expdata_log.csv
+[2025-07-08 14:51:48.655488] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/expdata_ratio.csv
+[2025-07-08 14:51:50.139161] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/expdata_harmony.csv
+[2025-07-08 14:51:52.200316] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/expdata_combat.csv
+[2025-07-08 14:51:53.485395] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/expdata_median.csv
+[2025-07-08 14:52:26.482173] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:53:07.420379] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/expdata_ruv.csv
+[2025-07-08 14:53:07.420753] Successfully corrected.
+
+[2025-07-08 14:53:07.420841] correcting /app/data/expfiles/confounded/peptide/toppep3/expdata_log.csv
+[2025-07-08 14:53:13.884102] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/expdata_harmony.csv
+[2025-07-08 14:53:14.012835] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/expdata_ratio.csv
+[2025-07-08 14:53:18.250292] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/expdata_median.csv
+[2025-07-08 14:53:19.811849] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/expdata_combat.csv
+[2025-07-08 14:53:56.310337] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:54:36.08586] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/expdata_ruv.csv
+[2025-07-08 14:54:36.086385] Successfully corrected.
+
+[2025-07-08 14:54:36.086573] correcting /app/data/expfiles/confounded/precursor/expdata_log.csv
+[2025-07-08 14:54:45.908822] Successfully saved: /app/data/expfiles/confounded/precursor/expdata_ratio.csv
+[2025-07-08 14:54:46.267278] Successfully saved: /app/data/expfiles/confounded/precursor/expdata_harmony.csv
+[2025-07-08 14:54:49.045254] Successfully saved: /app/data/expfiles/confounded/precursor/expdata_median.csv
+[2025-07-08 14:54:55.656546] Successfully saved: /app/data/expfiles/confounded/precursor/expdata_combat.csv
+[2025-07-08 14:55:59.587792] Successfully saved: /app/data/expfiles/confounded/precursor/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:57:03.633034] Successfully saved: /app/data/expfiles/confounded/precursor/expdata_ruv.csv
+[2025-07-08 14:57:03.633573] Successfully corrected.
+
+[2025-07-08 14:57:03.633719] correcting /app/data/expfiles/confounded/protein/ibaq/expdata_log.csv
+[2025-07-08 14:57:06.917251] Successfully saved: /app/data/expfiles/confounded/protein/ibaq/expdata_harmony.csv
+[2025-07-08 14:57:07.67915] Successfully saved: /app/data/expfiles/confounded/protein/ibaq/expdata_median.csv
+[2025-07-08 14:57:07.76908] Successfully saved: /app/data/expfiles/confounded/protein/ibaq/expdata_ratio.csv
+[2025-07-08 14:57:10.816397] Successfully saved: /app/data/expfiles/confounded/protein/ibaq/expdata_combat.csv
+[2025-07-08 14:57:18.903388] Successfully saved: /app/data/expfiles/confounded/protein/ibaq/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:57:23.717554] Successfully saved: /app/data/expfiles/confounded/protein/ibaq/expdata_ruv.csv
+[2025-07-08 14:57:23.717889] Successfully corrected.
+
+[2025-07-08 14:57:23.717979] correcting /app/data/expfiles/confounded/protein/maxlfq/expdata_log.csv
+[2025-07-08 14:57:27.055469] Successfully saved: /app/data/expfiles/confounded/protein/maxlfq/expdata_harmony.csv
+[2025-07-08 14:57:27.692405] Successfully saved: /app/data/expfiles/confounded/protein/maxlfq/expdata_ratio.csv
+[2025-07-08 14:57:28.164542] Successfully saved: /app/data/expfiles/confounded/protein/maxlfq/expdata_median.csv
+[2025-07-08 14:57:30.843636] Successfully saved: /app/data/expfiles/confounded/protein/maxlfq/expdata_combat.csv
+[2025-07-08 14:57:37.79077] Successfully saved: /app/data/expfiles/confounded/protein/maxlfq/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:57:40.857154] Successfully saved: /app/data/expfiles/confounded/protein/maxlfq/expdata_ruv.csv
+[2025-07-08 14:57:40.857644] Successfully corrected.
+
+[2025-07-08 14:57:40.857827] correcting /app/data/expfiles/confounded/protein/toppep3/expdata_log.csv
+[2025-07-08 14:57:43.833554] Successfully saved: /app/data/expfiles/confounded/protein/toppep3/expdata_ratio.csv
+[2025-07-08 14:57:43.995911] Successfully saved: /app/data/expfiles/confounded/protein/toppep3/expdata_median.csv
+[2025-07-08 14:57:44.888278] Successfully saved: /app/data/expfiles/confounded/protein/toppep3/expdata_harmony.csv
+[2025-07-08 14:57:46.908183] Successfully saved: /app/data/expfiles/confounded/protein/toppep3/expdata_combat.csv
+[2025-07-08 14:57:51.019624] Successfully saved: /app/data/expfiles/confounded/protein/toppep3/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:57:52.883829] Successfully saved: /app/data/expfiles/confounded/protein/toppep3/expdata_ruv.csv
+[2025-07-08 14:57:52.884197] Successfully corrected.
+
+[2025-07-08 14:57:52.884306] correcting /app/data/expfiles/simulated/peptide/ibaq/expdata_log.csv
+Joining with `by = join_by(peptide, protein)`
+[2025-07-08 14:57:55.425035] Successfully saved: /app/data/expfiles/simulated/peptide/ibaq/expdata_median.csv
+[2025-07-08 14:57:55.561432] Successfully saved: /app/data/expfiles/simulated/peptide/ibaq/expdata_harmony.csv
+[2025-07-08 14:57:55.805883] Successfully saved: /app/data/expfiles/simulated/peptide/ibaq/expdata_ratio.csv
+[2025-07-08 14:57:59.028793] Successfully saved: /app/data/expfiles/simulated/peptide/ibaq/expdata_combat.csv
+[2025-07-08 14:58:05.056411] Successfully saved: /app/data/expfiles/simulated/peptide/ibaq/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:58:07.370111] Successfully saved: /app/data/expfiles/simulated/peptide/ibaq/expdata_ruv.csv
+[2025-07-08 14:58:07.370545] Successfully corrected.
+
+[2025-07-08 14:58:07.370689] correcting /app/data/expfiles/simulated/peptide/maxlfq/expdata_log.csv
+Joining with `by = join_by(peptide, protein)`
+[2025-07-08 14:58:09.743977] Successfully saved: /app/data/expfiles/simulated/peptide/maxlfq/expdata_ratio.csv
+[2025-07-08 14:58:09.867118] Successfully saved: /app/data/expfiles/simulated/peptide/maxlfq/expdata_harmony.csv
+[2025-07-08 14:58:10.062148] Successfully saved: /app/data/expfiles/simulated/peptide/maxlfq/expdata_median.csv
+[2025-07-08 14:58:12.843707] Successfully saved: /app/data/expfiles/simulated/peptide/maxlfq/expdata_combat.csv
+[2025-07-08 14:58:19.512823] Successfully saved: /app/data/expfiles/simulated/peptide/maxlfq/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:58:22.158796] Successfully saved: /app/data/expfiles/simulated/peptide/maxlfq/expdata_ruv.csv
+[2025-07-08 14:58:22.159179] Successfully corrected.
+
+[2025-07-08 14:58:22.159283] correcting /app/data/expfiles/simulated/peptide/toppep3/expdata_log.csv
+Joining with `by = join_by(peptide, protein)`
+[2025-07-08 14:58:24.175479] Successfully saved: /app/data/expfiles/simulated/peptide/toppep3/expdata_ratio.csv
+[2025-07-08 14:58:24.571141] Successfully saved: /app/data/expfiles/simulated/peptide/toppep3/expdata_median.csv
+[2025-07-08 14:58:24.96788] Successfully saved: /app/data/expfiles/simulated/peptide/toppep3/expdata_harmony.csv
+[2025-07-08 14:58:27.827603] Successfully saved: /app/data/expfiles/simulated/peptide/toppep3/expdata_combat.csv
+[2025-07-08 14:58:34.622563] Successfully saved: /app/data/expfiles/simulated/peptide/toppep3/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:58:38.483813] Successfully saved: /app/data/expfiles/simulated/peptide/toppep3/expdata_ruv.csv
+[2025-07-08 14:58:38.484412] Successfully corrected.
+
+[2025-07-08 14:58:38.48454] correcting /app/data/expfiles/simulated/precursor/expdata_log.csv
+Joining with `by = join_by(precursor, peptide, protein)`
+[2025-07-08 14:58:41.235084] Successfully saved: /app/data/expfiles/simulated/precursor/expdata_ratio.csv
+[2025-07-08 14:58:42.417755] Successfully saved: /app/data/expfiles/simulated/precursor/expdata_harmony.csv
+[2025-07-08 14:58:42.540748] Successfully saved: /app/data/expfiles/simulated/precursor/expdata_median.csv
+[2025-07-08 14:58:47.281197] Successfully saved: /app/data/expfiles/simulated/precursor/expdata_combat.csv
+[2025-07-08 14:58:53.717278] Successfully saved: /app/data/expfiles/simulated/precursor/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:58:59.036431] Successfully saved: /app/data/expfiles/simulated/precursor/expdata_ruv.csv
+[2025-07-08 14:58:59.036944] Successfully corrected.
+
+[2025-07-08 14:58:59.037058] correcting /app/data/expfiles/simulated/protein/ibaq/expdata_log.csv
+Joining with `by = join_by(protein)`
+[2025-07-08 14:59:01.443559] Successfully saved: /app/data/expfiles/simulated/protein/ibaq/expdata_ratio.csv
+[2025-07-08 14:59:02.109504] Successfully saved: /app/data/expfiles/simulated/protein/ibaq/expdata_median.csv
+[2025-07-08 14:59:02.342893] Successfully saved: /app/data/expfiles/simulated/protein/ibaq/expdata_harmony.csv
+[2025-07-08 14:59:06.243503] Successfully saved: /app/data/expfiles/simulated/protein/ibaq/expdata_combat.csv
+[2025-07-08 14:59:07.924084] Successfully saved: /app/data/expfiles/simulated/protein/ibaq/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:59:09.672478] Successfully saved: /app/data/expfiles/simulated/protein/ibaq/expdata_ruv.csv
+[2025-07-08 14:59:09.672828] Successfully corrected.
+
+[2025-07-08 14:59:09.672924] correcting /app/data/expfiles/simulated/protein/maxlfq/expdata_log.csv
+Joining with `by = join_by(protein)`
+[2025-07-08 14:59:11.979088] Successfully saved: /app/data/expfiles/simulated/protein/maxlfq/expdata_ratio.csv
+[2025-07-08 14:59:12.677183] Successfully saved: /app/data/expfiles/simulated/protein/maxlfq/expdata_median.csv
+[2025-07-08 14:59:12.903808] Successfully saved: /app/data/expfiles/simulated/protein/maxlfq/expdata_harmony.csv
+[2025-07-08 14:59:15.429923] Successfully saved: /app/data/expfiles/simulated/protein/maxlfq/expdata_combat.csv
+[2025-07-08 14:59:17.933367] Successfully saved: /app/data/expfiles/simulated/protein/maxlfq/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:59:19.975746] Successfully saved: /app/data/expfiles/simulated/protein/maxlfq/expdata_ruv.csv
+[2025-07-08 14:59:19.976155] Successfully corrected.
+
+[2025-07-08 14:59:19.976267] correcting /app/data/expfiles/simulated/protein/toppep3/expdata_log.csv
+Joining with `by = join_by(protein)`
+[2025-07-08 14:59:22.283735] Successfully saved: /app/data/expfiles/simulated/protein/toppep3/expdata_median.csv
+[2025-07-08 14:59:22.650568] Successfully saved: /app/data/expfiles/simulated/protein/toppep3/expdata_ratio.csv
+[2025-07-08 14:59:23.009747] Successfully saved: /app/data/expfiles/simulated/protein/toppep3/expdata_harmony.csv
+[2025-07-08 14:59:26.288062] Successfully saved: /app/data/expfiles/simulated/protein/toppep3/expdata_combat.csv
+[2025-07-08 14:59:28.070534] Successfully saved: /app/data/expfiles/simulated/protein/toppep3/expdata_waveica.csv
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+[2025-07-08 14:59:29.913115] Successfully saved: /app/data/expfiles/simulated/protein/toppep3/expdata_ruv.csv
+[2025-07-08 14:59:29.913482] Successfully corrected.

@@ -3,6 +3,7 @@
 .gitignore
 .Rproj
 .Rproj.user/
+.Rprofile
 
 # ignore renv library - this is rebuilt inside the container
 /renv/library/
@@ -11,14 +12,15 @@
 /data/rawfiles/raw/
 /data/expfiles/
 /results/
-/ChiHOPE/
+/ChiHOPE/meta.csv
+/ChiHOPE/peptide/
+/ChiHOPE/protein/
 
 # ignore R history file
 .Rhistory
 .DS_Store
 
 # ignore any other files
-*.csv
 *.zip
 *.xlsx
 *.pdf

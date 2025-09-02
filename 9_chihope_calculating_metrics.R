@@ -274,7 +274,7 @@ all_files <- list.files("./ChiHOPE", recursive = TRUE, full.names = TRUE)
 queried_files <- all_files[grepl(".+expdata", all_files)]
 queried_files <- queried_files[!grepl("precursor/expdata_log.csv", queried_files)]
 queried_files <- queried_files[grepl("protein", queried_files)]
-queried_files <- queried_files[grepl("log|loess", queried_files)]
+# queried_files <- queried_files[grepl("log|loess", queried_files)]
 
 halfwide_list <- pblapply(queried_files, function(file_id) {
   

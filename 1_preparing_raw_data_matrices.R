@@ -21,6 +21,9 @@ source("./utils/BEC.R")
 quantification_methods <- c("MaxLFQ", "iBAQ", "TopPep3")
 label_names <- c("maxlfq", "ibaq", "toppep3")
 
+if (!interactive()) pboptions(type = "none")
+options(mc.cores = min(24, max(1, parallel::detectCores() - 8)))
+
 
 ## aggregate precursors into peptides: about 25 min -----------------
 gc()

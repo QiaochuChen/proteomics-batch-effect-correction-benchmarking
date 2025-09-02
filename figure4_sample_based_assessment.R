@@ -60,6 +60,26 @@ names(dictLabelsBatch) <- c("DDA_APT", "DDA_FDU", "DDA_NVG", "DIA_APT", "DIA_BGI
 dictLabelsCorrectMethods <- c("Ratio", "Med-C", "Combat", "RUV-III-C", "Harmony", "WaveICA2", "NormAE")
 names(dictLabelsCorrectMethods) <- c("ratio", "median", "combat", "ruv", "harmony", "waveica", "normae")
 
+p_format <- function(p_value) {
+  # 设置一个非常小的阈值
+  threshold <- .0001
+  # 如果P值小于阈值，则使用 "<" 符号
+  if (p_value < threshold) {
+    return(paste0("**** (P < 0.0001)"))
+  } else if (p_value < .001) {
+    # 否则，直接格式化P值并添加"P = "前缀
+    return(paste0("*** (P = ", format(p_value, digits = 2), ")", sep = ""))
+  } else if (p_value < .01) {
+    # 否则，直接格式化P值并添加"P = "前缀
+    return(paste0("** (P = ", format(p_value, digits = 2), ")", sep = ""))
+  } else if (p_value < .05) {
+    # 否则，直接格式化P值并添加"P = "前缀
+    return(paste0("* (P = ", format(p_value, digits = 2), ")", sep = ""))
+  } else {
+    return(paste0("NS (P = ", format(p_value, digits = 2), ")", sep = ""))
+  }
+}
+
 
 ## figure 4a ------------------------
 pca_objs <- readRDS(paste("./results/tables/pca_snr.rds", sep = ""))
@@ -95,7 +115,9 @@ sub_snr_tmp <- sub_pca_final %>%
 
 sub_snr_stat <- sub_snr_tmp %>%
   group_by(label, scenario) %>%
-  summarise(snr_mean = mean(snr),cv_sd = sd(snr), cv_median = median(snr))
+  summarise(snr_mean = mean(snr),cv_sd = sd(snr), cv_median = median(snr),
+            n = length(unique(correct_method)),
+            n_total = length(snr))
 
 p_snr_box <- ggplot(sub_snr_tmp, aes(x = label, y = snr)) +
   geom_boxplot(aes(fill = label), width = .7,
@@ -103,23 +125,26 @@ p_snr_box <- ggplot(sub_snr_tmp, aes(x = label, y = snr)) +
   geom_signif(comparisons = list(c("Precursor-corrected", "Peptide-corrected"),
                                  c("Precursor-corrected", "Protein-corrected"),
                                  c("Peptide-corrected", "Protein-corrected")),
-              map_signif_level = TRUE,
-              step_increase = .1,
+              map_signif_level = p_format,
+              step_increase = .15,
               tip_length = .01,
-              textsize = 4,
+              textsize = 2,
               test = "t.test") +
   theme_bw() +
   theme(legend.position = "none",
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        strip.text = element_text(size = 12, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
+        axis.title.y = element_text(size = 12),
         axis.title.x = element_blank(),
-        axis.text.y = element_text(size = 16),
-        axis.text.x = element_text(size = 12, angle = 45, hjust = 1, vjust = 1),
-        plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
+        axis.text.y = element_text(size = 10),
+        axis.text.x = element_text(size = 10, angle = 45, hjust = 1, vjust = 1),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        plot.margin = unit(c(.5, .5, 0, .5), "cm")) +
   scale_fill_manual(values = dictColorsLevel, name = "Correction level") +
-  scale_y_continuous(name = "SNR", limits = c(-1, 40)) +
-  facet_wrap( ~ scenario);p_snr_box
+  scale_y_continuous(name = "SNR", n.breaks = 5, 
+                     expand = expansion(mult = c(0.05, 0.15))) +
+  facet_wrap( ~ scenario, scales = "free_y", ncol = 2)
 
 figure4a <- p_snr_box
 
@@ -148,15 +173,14 @@ p_snr_box <- ggplot(sub_snr_tmp, aes(x = label, y = snr)) +
                position = position_dodge(width = .8)) +
   theme_bw() +
   theme(legend.position = "none",
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        strip.text = element_text(size = 14, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
+        axis.title.y = element_text(size = 14),
         axis.title.x = element_blank(),
-        axis.text.y = element_text(size = 16),
+        axis.text.y = element_text(size = 12),
         axis.text.x = element_blank(),
         panel.grid.major.x = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
+        panel.grid.minor.y = element_blank()) +
   scale_fill_manual(values = dictColorsLevel) +
   scale_y_continuous(n.breaks = 5,  name = "SNR") +
   facet_wrap(~ correct_method, nrow = 1);p_snr_box
@@ -190,39 +214,40 @@ p_snr_box <- ggplot(sub_snr_tmp, aes(x = label, y = snr)) +
   geom_signif(comparisons = list(c("Precursor-corrected", "Peptide-corrected"),
                                  c("Precursor-corrected", "Protein-corrected"),
                                  c("Peptide-corrected", "Protein-corrected")),
-              map_signif_level = TRUE,
-              y_position = 20,
-              step_increase = .1,
+              map_signif_level = p_format,
+              # y_position = 20,
+              step_increase = .15,
               tip_length = .01,
-              textsize = 4,
+              textsize = 2,
               test = "t.test") +
   theme_bw() +
   theme(legend.position = "top",
-        legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16),
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 12),
+        strip.text = element_text(size = 14, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
+        axis.title.y = element_text(size = 14),
         axis.title.x = element_blank(),
-        axis.text.y = element_text(size = 16),
+        axis.text.y = element_text(size = 12),
         axis.text.x = element_blank(),
         panel.grid.major.x = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
+        panel.grid.minor.y = element_blank()) +
   scale_fill_manual(values = dictColorsLevel, name = "Correction level") +
-  scale_y_continuous(n.breaks = 5, name = "SNR") +
+  scale_y_continuous(n.breaks = 5, name = "SNR",
+                     expand = expansion(mult = c(0.05, 0.15))) +
   facet_grid(cols = vars(scenario), rows = vars(quant_method));p_snr_box
 
 suppl6b <- p_snr_box
 
 
 ## combined supplementary figure6 -----------------------
-suppl6 <- plot_grid(suppl6a + theme(plot.margin = unit(c(.5, 1.7, .5, .5), "cm")),
-                    suppl6b,
+suppl6 <- plot_grid(suppl6a + theme(plot.margin = unit(c(.5, 1.5, .5, .5), "cm")),
+                    suppl6b + theme(plot.margin = unit(c(.5, .5, .5, .5), "cm")),
                    nrow = 2, rel_heights = c(.5, 1),
-                   labels = c("a", "b"), label_size = 24)
+                   labels = c("a", "b"), label_size = 20)
 
-ggsave("./results/figures/extended_figure6.pdf", suppl6, height = 10, width = 12)
+ggsave("./results/figures/extended_figure6.pdf", suppl6,
+       height = 260, width = 210, units = "mm")
 
 
 ## figure 4b ------------------
@@ -249,31 +274,37 @@ p_list <- pblapply(unique(sub_snr_tmp$scenario), function(scenario_id) {
   p_title <- ggplot(sub_snr_tmp_i) +
     theme_classic() +
     theme(line = element_blank(),
-          strip.text = element_text(size = 20),
-          plot.margin = unit(c(.5, .5, .5, 2), "cm"))+
+          strip.text = element_text(size = 14),
+          strip.background = element_rect(linewidth = .7),
+          plot.margin = unit(c(.9, 1.4, .5, 1.5), "cm"))+
     facet_grid(cols = vars(scenario))
   
   p_snr_bar <- ggplot(sub_snr_tmp_i, aes(x = reorder(correct_method, snr), y = snr)) +
     geom_col(aes(fill = label), alpha = .7, width = .1, position = position_dodge(width = .9)) +
-    geom_point(aes(color = label), size = 5, position = position_dodge(width = .9)) +
+    geom_point(aes(color = label), size = 3, position = position_dodge(width = .9)) +
     geom_hline(aes(yintercept = cut_off), lty = 2, col = "red") +
     theme_bw() +
     theme(legend.position = "none",
-          strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+          strip.text = element_text(size = 10, margin = unit(rep(.3, 4), "cm")),
           strip.background = element_blank(),
-          axis.title.y = element_text(size = 20),
+          axis.title.y = element_text(size =12),
           axis.title.x = element_blank(),
-          axis.text.y = element_text(size = 16),
-          axis.text.x = element_text(size = 14, angle = 45, hjust = 1, vjust = 1),
+          axis.text.y = element_text(size = 10),
+          axis.text.x = element_text(size = 8, angle = 45, hjust = 1, vjust = 1),
           panel.grid.major.x = element_blank(),
           panel.grid.minor.y = element_blank(),
-          plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
+          plot.margin = unit(c(0, .5, .5, .5), "cm")) +
     scale_color_manual(values = dictColorsLevel) +
     scale_fill_manual(values = dictColorsLevel) +
     scale_y_continuous(n.breaks = 5, name = "SNR") +
     facet_grid(cols = vars(label), rows = vars(quant_method))
   
-  p_snr_i <- plot_grid(p_title, p_snr_bar, nrow = 2, rel_heights = c(.1, 1))
+  if (scenario_id %in% "Quartet-B") {
+    p_snr_bar <- p_snr_bar + theme(plot.margin = unit(c(0, .5, 1.3, .5), "cm"))
+    p_snr_i <- plot_grid(p_title, p_snr_bar, nrow = 2, rel_heights = c(.11, 1))
+  } else {
+    p_snr_i <- plot_grid(p_title, p_snr_bar, nrow = 2, rel_heights = c(.15, 1))
+  }
   
   return(p_snr_i)
 })
@@ -295,10 +326,10 @@ supp7c <-  p_list[[4]]
 
 ## combined supplementary figure7 -----------------------
 supp7 <- plot_grid(supp7a, supp7b, supp7c,
-                   nrow = 3, labels = c("a", "b", "c"), label_size = 24)
+                   nrow = 3, labels = c("a", "b", "c"), label_size = 20)
 
 ggsave("./results/figures/extended_figure7.pdf",
-       supp7, width = 12, height = 18)
+       supp7, width = 210, height = 297, units = "mm")
 
 
 ## supplementary figure 8a ------------------------
@@ -325,8 +356,8 @@ lg_pca_shape1 <- ggplot(sub_pca_tmp %>% filter(grepl("Quartet", scenario))) +
   labs(shape = "Batch") +
   theme_bw() +
   theme(legend.direction = "horizontal",
-        legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16))
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 12))
 
 lg_pca_color1 <- ggplot(sub_pca_tmp %>% filter(grepl("Quartet", scenario))) +
   geom_point(aes(x = PC1, y = PC2, color = sample), size = 4) +
@@ -334,14 +365,15 @@ lg_pca_color1 <- ggplot(sub_pca_tmp %>% filter(grepl("Quartet", scenario))) +
   labs(color = "Sample") +
   theme_bw() +
   theme(legend.direction = "horizontal",
-        legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16))
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 12))
 
 p_title <- ggplot(sub_pca_tmp) +
   theme_classic() +
   theme(line = element_blank(),
-        strip.text = element_text(size = 20),
-        plot.margin = unit(c(.5, .5, 0, 1.8), "cm"))+
+        strip.text = element_text(size = 14),
+        strip.background = element_rect(linewidth = .7),
+        plot.margin = unit(c(.5, .5, .5, 1.6), "cm"))+
   facet_grid(cols = vars(title))
 
 p_pca_list <- mclapply(unique(sub_pca_tmp$scenario), function(scenario_id) {
@@ -355,17 +387,19 @@ p_pca_list <- mclapply(unique(sub_pca_tmp$scenario), function(scenario_id) {
   p_title_i <- ggplot(sub_pca_tmp_i) +
     theme_classic() +
     theme(line = element_blank(),
-          strip.text = element_text(size = 20),
-          plot.margin = unit(c(.5, .5, 0, 1.8), "cm"))+
+          strip.text = element_text(size = 10),
+          strip.background = element_rect(linewidth = .7),
+          plot.margin = unit(c(.5, .5, .5, 1.6), "cm"))+
     facet_grid(cols = vars(scenario))
   
   p_tmp <- ggplot(sub_pca_tmp_i,aes(x = PC1, y = PC2)) +
-    geom_point(aes(color = sample, shape = batch), size = 3) +
+    geom_point(aes(color = sample, shape = batch), size = 1) +
     theme_bw() +
     theme(legend.position = "none",
-          legend.text = element_text(size = 14),
-          title = element_text(size = 16),
-          strip.text = element_text(size = 16),
+          legend.text = element_text(size = 10),
+          title = element_text(size = 10),
+          axis.text = element_text(size = 8),
+          strip.text = element_text(size = 9),
           strip.background = element_blank(),
           plot.margin = unit(c(0, .5, .5, .5), "cm")) +
     scale_color_manual(values = dictColorsSample) +
@@ -380,7 +414,7 @@ p_pca_list <- mclapply(unique(sub_pca_tmp$scenario), function(scenario_id) {
 })
 
 p_pca_all <- plot_grid(plotlist = p_pca_list, ncol = 2)
-p_pca_final <- plot_grid(p_title, p_pca_all, nrow = 2, rel_heights = c(.1, 1))
+p_pca_final <- plot_grid(p_title, p_pca_all, nrow = 2, rel_heights = c(.11, 1))
 lg_pca1 <- plot_grid(get_legend(lg_pca_shape1), get_legend(lg_pca_color1), ncol = 2)
 supp8a <- plot_grid(p_pca_final, lg_pca1, nrow = 2, rel_heights = c(1, .07))
 
@@ -410,19 +444,19 @@ p_box3 <- ggplot(sub_pca_tmp, aes(x = correct_level, y = PC1)) +
   theme(legend.position = "none",
         legend.title = element_text(size = 20),
         legend.text = element_text(size = 16),
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        strip.text = element_text(size = 12, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
+        axis.title.y = element_text(size = 12),
         axis.title.x = element_blank(),
-        axis.text.y = element_text(size = 16),
-        axis.text.x = element_text(size = 16),
-        panel.spacing = unit(1.5, "lines"),
+        axis.text.y = element_text(size = 10),
+        axis.text.x = element_text(size = 10),
+        panel.spacing = unit(.2, "lines"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.y = element_blank(),
         plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
   scale_fill_manual(values = dictColorsSample) +
   scale_y_continuous(n.breaks = 5, name = "PC1") +
-  facet_wrap(~ scenario + correct_level, scales = "free", nrow = 1);p_box3
+  facet_wrap(~ scenario + correct_level, scales = "free_x", nrow = 1)
 
 p_box4 <- ggplot(sub_pca_tmp, aes(x = correct_level, y = PC2)) +
   geom_boxplot(aes(fill = sample)) +
@@ -430,19 +464,19 @@ p_box4 <- ggplot(sub_pca_tmp, aes(x = correct_level, y = PC2)) +
   theme(legend.position = "none",
         legend.title = element_text(size = 20),
         legend.text = element_text(size = 16),
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        strip.text = element_text(size = 12, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
+        axis.title.y = element_text(size = 12),
         axis.title.x = element_blank(),
-        axis.text.y = element_text(size = 16),
-        axis.text.x = element_text(size = 16),
-        panel.spacing = unit(1.5, "lines"),
+        axis.text.y = element_text(size = 10),
+        axis.text.x = element_text(size = 10),
+        panel.spacing = unit(.2, "lines"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.y = element_blank(),
         plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
   scale_fill_manual(values = dictColorsSample) +
   scale_y_continuous(n.breaks = 5, name = "PC2") +
-  facet_wrap(~ scenario + correct_level, scales = "free", nrow = 1);p_box4
+  facet_wrap(~ scenario + correct_level, scales = "free_x", nrow = 1)
 
 supp8b <- plot_grid(p_box3, p_box4,nrow = 1)
 
@@ -450,10 +484,10 @@ supp8b <- plot_grid(p_box3, p_box4,nrow = 1)
 ## combined supplementary figure8 -----------------------------------
 supp8 <- plot_grid(supp8a, supp8b,
                    nrow = 2, rel_heights = c(1, .3),
-                   labels = c("a", "b"), label_size = 24)
+                   labels = c("a", "b"), label_size = 20)
 
 ggsave("./results/figures/extended_figure8.pdf",
-       supp8, width = 16, height = 20)
+       supp8, width = 210, height = 290, units = "mm")
 
 
 ## figure 4c -----------------------------------
@@ -502,16 +536,16 @@ p_pvca_bar <- ggplot(sub_pvca1, aes(x = name, y = proportion)) +
   geom_col(aes(fill = label2), width = .7) +
   # geom_hline(aes(yintercept = cut_off), lty = 2, size = 1) +
   theme_classic() +
-  theme(legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16),
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 8),
         axis.text.x = element_blank(),
         axis.title.x = element_blank(),
-        axis.title.y = element_text(size = 20, margin = unit(c(0, 0, 0, 0), "cm")),
-        axis.text.y = element_text(size = 16)) +
+        axis.title.y = element_text(size = 12, margin = unit(c(0, 0, 0, 0), "cm")),
+        axis.text.y = element_text(size = 10)) +
   labs(y = "Weighted proportion of variances (%)", fill = "Label") +
   scale_fill_manual(values = c("#F7F7F7", "#FDE0EF", "#B8E186", "#66BD63")) +
   scale_y_continuous(breaks = seq(0, 1, .1),
-                     labels = ~ . * 100);p_pvca_bar
+                     labels = ~ . * 100)
 
 sub_pvca2 <- sub_pvca1 %>%
   distinct(name, correct_method, quant_method, label)
@@ -520,34 +554,34 @@ p_pvca_level <- ggplot(sub_pvca2, aes(x = name, y = 1)) +
   geom_col(aes(fill = label), width = .7) +
   scale_fill_manual(values = dictColorsLevel, name = "Correction Level") +
   theme_void() +
-  theme(legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16),
-        axis.title.y = element_text(size = 14, margin = unit(c(0, .2, 0, .59), "cm"))) +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 8),
+        axis.title.y = element_text(size = 10, margin = unit(c(0, .2, 0, .35), "cm"))) +
   labs(y = "Level")
 
 p_pvca_method <- ggplot(sub_pvca2, aes(x = name, y = 1)) +
   geom_col(aes(fill = correct_method), width = .7) +
   scale_fill_manual(values = dictColorsMethod, name = "BECA") +
   theme_void() +
-  theme(legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16),
-        axis.title.y = element_text(size = 14, margin = unit(c(0, .2, 0, .43), "cm"))) +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 8),
+        axis.title.y = element_text(size = 10, margin = unit(c(0, .2, 0, .22), "cm"))) +
   labs(y = "BECA")
 
 p_pvca_quant <- ggplot(sub_pvca2, aes(x = name, y = 1)) +
   geom_col(aes(fill = quant_method), width = .7) +
   scale_fill_manual(values = dictColorsQuantMethods, name = "QM") +
   theme_void() +
-  theme(legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16),
-        axis.title.y = element_text(size = 14, margin = unit(c(0, .2, 0, .99), "cm"))) +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 8),
+        axis.title.y = element_text(size = 10, margin = unit(c(0, .2, 0, .61), "cm"))) +
   labs(y = "QM")
 
 p_pvca_annot <- plot_grid(p_pvca_level + theme(legend.position = "none"),
                           p_pvca_method + theme(legend.position = "none"),
                           p_pvca_quant + theme(legend.position = "none"),
                           nrow = 3) +
-  theme(plot.margin = unit(c(0, .2, 0, 0), "cm"))
+  theme(plot.margin = unit(c(0, .2, .7, 0), "cm"))
 
 p_pvca_final <- plot_grid(p_pvca_bar + theme(legend.position = "none"),
                           p_pvca_annot, nrow = 2,
@@ -557,24 +591,24 @@ p_pvca_legend <- plot_grid(get_legend(p_pvca_bar),
                            get_legend(p_pvca_level),
                            get_legend(p_pvca_method),
                            get_legend(p_pvca_quant),
-                           ncol = 4) +
-  theme(plot.margin = unit(c(.5, 0, 0, 4), "cm")) 
+                           ncol = 4, rel_widths = c(1, .8, .7, .7)) +
+  theme(plot.margin = unit(c(0, 0, .2, 1), "cm")) 
 
 figure4c <- plot_grid(p_pvca_final, p_pvca_legend,
                       nrow = 2, rel_heights = c(3.7, 1)) +
-  theme(plot.margin = unit(c(.5, 0, .5, 0), "cm"));figure4c
+  theme(plot.margin = unit(c(0, 1.2, .5, .2), "cm"))
 
 
 ## combined figure4 -----------------------
 figure4ab <- plot_grid(figure4a, figure4b,
                        ncol = 2, rel_widths = c(.6, 1),
-                       labels = c("a", "b"), label_size = 24)
+                       labels = c("a", "b"), label_size = 20)
 figure4 <- plot_grid(figure4ab, figure4c,
                      nrow = 2, rel_heights = c(1, 1.2),
-                     labels = c("", "c"), label_size = 24)
+                     labels = c("", "c"), label_size = 20)
 
 ggsave("./results/figures/figure4.pdf",
-       figure4, width = 16, height = 17)
+       figure4, width = 210, height = 297, units = "mm")
 
 
 ## supplementary figure 9 -----------------------
@@ -610,8 +644,9 @@ p_list <- pblapply(unique(sub_pvca_tmp$scenario), function(scenario_id) {
   p_title <- ggplot(sub_pvca_tmp_i) +
     theme_classic() +
     theme(line = element_blank(),
-          strip.text = element_text(size = 20),
-          plot.margin = unit(c(.5, .5, 0, 2.4), "cm"))+
+          strip.text = element_text(size = 14),
+          strip.background = element_rect(linewidth = .7),
+          plot.margin = unit(c(.5, .5, .5, 1.75), "cm"))+
     facet_grid(cols = vars(scenario))
   
   p_pvca_box <- ggplot(sub_pvca_tmp_i, aes(x = label, y = proportion)) +
@@ -633,29 +668,29 @@ p_list <- pblapply(unique(sub_pvca_tmp$scenario), function(scenario_id) {
     theme(legend.position = "none",
           panel.grid.major.x = element_blank(),
           panel.grid.minor.y = element_blank(),
-          strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+          strip.text = element_text(size = 12, margin = unit(rep(.3, 4), "cm")),
           strip.background = element_rect(fill = "white"),
-          axis.title.y = element_text(size = 20),
+          axis.title.y = element_text(size = 12),
           axis.title.x = element_blank(),
-          axis.text.y = element_text(size = 16),
-          axis.text.x = element_blank(),
+          axis.text.y = element_text(size = 10),
+          axis.text.x = element_text(size = 10, angle = 45, hjust = 1, vjust = 1),
           plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
     scale_fill_manual(values = dictColorsLevel) +
     scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, .2),
                        labels = ~ .*100, name = "PVCA (%)") +
-    scale_x_discrete(labels = ~ paste(Hmisc::capitalize(.), "-level", sep = "")) +
     facet_wrap( ~ label2, ncol = 3, shrink = FALSE, scales = "fixed")
   
-  p_final <- plot_grid(p_title, p_pvca_box, nrow = 2, rel_heights = c(.1, 1));p_final
+  p_final <- plot_grid(p_title, p_pvca_box, nrow = 2, rel_heights = c(.1, 1))
   
   return(p_final)
 })
 
 supp9 <- plot_grid(plotlist = p_list,
                    nrow = 2, rel_heights = c(1, .7),
-                   labels = c("a", "b", "c", "d"), label_size = 24)
+                   labels = c("a", "b", "c", "d"), label_size = 20)
 
-ggsave("./results/figures/extended_figure9.pdf", supp9, width = 16, height = 16)
+ggsave("./results/figures/extended_figure9.pdf", supp9,
+       width = 210, height = 240, units = "mm")
 
 
 ## supplementary table ------------------------

@@ -32,7 +32,7 @@ RUN R -e "install.packages('renv')"
 # 4. 拷贝 renv 相关文件到工作目录
 WORKDIR /proteomics-batch-effect-correction-benchmarking
 COPY renv.lock .
-COPY .Rprofile .
+# COPY .Rprofile .
 COPY renv/activate.R renv/
 
 # 本地下载gPCA包

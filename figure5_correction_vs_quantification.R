@@ -102,30 +102,29 @@ sub_cv_tmp <- sub_cv %>%
 p_cv_scatter <- ggplot(sub_cv_tmp, aes(x = x_axis, y = cv)) +
   # stat_summary(aes(color = label), fun = mean, geom = "line", size = 1) +
   geom_smooth(aes(group = label, color = label), na.rm = TRUE, alpha = .2, method = "loess") +
-  stat_summary(aes(color = label), fun = mean, geom = "point", size = 5) +
+  stat_summary(aes(color = label), fun = mean, geom = "point", size = 3) +
   # stat_summary(aes(fill = label), fun = mean, geom = "bar", width = .7) +
   # stat_summary(fun.data = "mean_se", geom = "errorbar", width = .15) +
   theme_bw() +
   theme(legend.position = "none",
-        legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16),
-        panel.spacing = unit(1.5, "cm"),
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 12),
+        panel.spacing = unit(2.6, "lines"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.y = element_blank(),
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        strip.text = element_text(size = 14, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
-        axis.text.y = element_text(size = 16),
+        axis.title.y = element_text(size = 12),
+        axis.text.y = element_text(size = 10),
         axis.title.x = element_blank(),
-        axis.text.x = element_text(size = 16, angle = 45, hjust = 1, vjust = 1),
-        plot.margin = unit(c(.5, .5, .5, 1.2), "cm")) +
+        axis.text.x = element_text(size = 10, angle = 45, hjust = 1, vjust = 1)) +
   scale_color_manual(values = c("#7FBC41", "#C51B7D"), name = "Group") +
   scale_x_continuous(limits = c(.8, 3.2), breaks = 1:3,
                      labels = c("Precursor", "Peptide", "Protein")) +
   scale_y_continuous(n.breaks = 5, name = "CV") +
   facet_grid(cols = vars(scenario))
 
-figure5a <- p_cv_scatter;figure5a
+figure5a <- p_cv_scatter
 
 
 ## supplementary figure 10a -----------------------
@@ -137,30 +136,29 @@ sub_cv_tmp <- sub_cv %>%
 p_cv_scatter <- ggplot(sub_cv_tmp, aes(x = x_axis, y = cv)) +
   # stat_summary(aes(color = label2), fun = mean, geom = "line", size = 1) +
   geom_smooth(aes(group = label2, color = label2), na.rm = TRUE, alpha = .2, method = "loess") +
-  stat_summary(aes(color = label2), fun = mean, geom = "point", size = 5) +
+  stat_summary(aes(color = label2), fun = mean, geom = "point", size = 3) +
   # stat_summary(aes(fill = label2), fun = mean, geom = "bar", width = .7) +
   # stat_summary(fun.data = "mean_se", geom = "errorbar", width = .15) +
   theme_bw() +
   theme(legend.position = "none",
-        legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16),
-        panel.spacing = unit(1.5, "cm"),
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 12),
+        panel.spacing = unit(2.6, "lines"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.y = element_blank(),
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        strip.text = element_text(size = 14, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
-        axis.text.y = element_text(size = 16),
+        axis.title.y = element_text(size = 12),
+        axis.text.y = element_text(size = 10),
         axis.title.x = element_blank(),
-        axis.text.x = element_text(size = 16, angle = 45, hjust = 1, vjust = 1),
-        plot.margin = unit(c(.5, .5, .5, 1.2), "cm")) +
+        axis.text.x = element_text(size = 10, angle = 45, hjust = 1, vjust = 1)) +
   scale_color_manual(values = c("#1B9E77", "#D95F02"), name = "Group") +
   scale_x_continuous(limits = c(.8, 3.2), breaks = 1:3,
                      labels = c("Precursor", "Peptide", "Protein")) +
   scale_y_continuous(n.breaks = 5, name = "CV") +
   facet_grid(cols = vars(scenario))
 
-supp10a <- p_cv_scatter;supp10a
+supp10a <- p_cv_scatter
 
 
 ## figure 5b -----------------------
@@ -212,30 +210,29 @@ sub_snr_tmp <- sub_snr %>%
 p_snr_scatter <- ggplot(sub_snr_tmp, aes(x = x_axis, y = snr)) +
   # stat_summary(aes(color = label), fun = mean, geom = "line", size = 1) +
   geom_smooth(aes(group = label, color = label), na.rm = TRUE, alpha = .2, method = "loess") +
-  stat_summary(aes(color = label), fun = mean, geom = "point", size = 5) +
+  stat_summary(aes(color = label), fun = mean, geom = "point", size = 3) +
   # stat_summary(aes(fill = label), fun = mean, geom = "bar", width = .7) +
   # stat_summary(fun.data = "mean_se", geom = "errorbar", width = .15) +
   theme_bw() +
   theme(legend.position = "none",
-        legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16),
-        panel.spacing = unit(1.5, "cm"),
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 12),
+        panel.spacing = unit(2.6, "lines"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.y = element_blank(),
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        strip.text = element_text(size = 14, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
-        axis.text.y = element_text(size = 16),
+        axis.title.y = element_text(size = 12),
+        axis.text.y = element_text(size = 10),
         axis.title.x = element_blank(),
-        axis.text.x = element_text(size = 16, angle = 45, hjust = 1, vjust = 1),
-        plot.margin = unit(c(.5, .5, .5, 1.3), "cm")) +
+        axis.text.x = element_text(size = 10, angle = 45, hjust = 1, vjust = 1)) +
   scale_color_manual(values = c("#7FBC41", "#C51B7D"), name = "Group") +
   scale_x_continuous(limits = c(.8, 3.2), breaks = 1:3,
                      labels = c("Precursor", "Peptide", "Protein")) +
   scale_y_continuous(n.breaks = 5, name = "SNR") +
   facet_grid(cols = vars(scenario))
 
-figure5b <- p_snr_scatter;figure5b
+figure5b <- p_snr_scatter
 
 
 ## supplementary figure 10b -----------------------
@@ -247,30 +244,29 @@ sub_snr_tmp <- sub_snr %>%
 p_snr_scatter <- ggplot(sub_snr_tmp, aes(x = x_axis, y = snr)) +
   # stat_summary(aes(color = label2), fun = mean, geom = "line", size = 1) +
   geom_smooth(aes(group = label2, color = label2), na.rm = TRUE, alpha = .2, method = "loess") +
-  stat_summary(aes(color = label2), fun = mean, geom = "point", size = 5) +
+  stat_summary(aes(color = label2), fun = mean, geom = "point", size = 3) +
   # stat_summary(aes(fill = label2), fun = mean, geom = "bar", width = .7) +
   # stat_summary(fun.data = "mean_se", geom = "errorbar", width = .15) +
   theme_bw() +
   theme(legend.position = "none",
-        legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16),
-        panel.spacing = unit(1.5, "cm"),
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 12),
+        panel.spacing = unit(2.6, "lines"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.y = element_blank(),
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        strip.text = element_text(size = 14, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
-        axis.text.y = element_text(size = 16),
+        axis.title.y = element_text(size = 12),
+        axis.text.y = element_text(size = 10),
         axis.title.x = element_blank(),
-        axis.text.x = element_text(size = 16, angle = 45, hjust = 1, vjust = 1),
-        plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
+        axis.text.x = element_text(size = 10, angle = 45, hjust = 1, vjust = 1)) +
   scale_color_manual(values = c("#1B9E77", "#D95F02"), name = "Group") +
   scale_x_continuous(limits = c(.8, 3.2), breaks = 1:3,
                      labels = c("Precursor", "Peptide", "Protein")) +
   scale_y_continuous(n.breaks = 5, name = "SNR") +
   facet_grid(cols = vars(scenario))
 
-supp10b <- p_snr_scatter;supp10b
+supp10b <- p_snr_scatter
 
 
 ## figure 5c -----------------------
@@ -310,29 +306,30 @@ p_list <- pblapply(unique(sub_mcc_tmp$scenario), function(scenario_id) {
   p_title <- ggplot(sub_mcc_tmp_i) +
     theme_classic() +
     theme(line = element_blank(),
-          strip.text = element_text(size = 20),
-          plot.margin = unit(c(.5, .5, 0, 2.8), "cm"))+
+          strip.text = element_text(size = 14),
+          strip.background = element_rect(linewidth = .7),
+          plot.margin = unit(c(.2, .2, .2, 1.5), "cm"))+
     facet_grid(cols = vars(scenario))
   
   p_mcc_scatter <- ggplot(sub_mcc_tmp_i, aes(x = x_axis, y = value)) +
     # stat_summary(aes(color = label), fun = mean, geom = "line", size = 1) +
     geom_smooth(aes(group = label, color = label), na.rm = TRUE, alpha = .2, method = "loess") +
-    stat_summary(aes(color = label), fun = mean, geom = "point", size = 5) +
+    stat_summary(aes(color = label), fun = mean, geom = "point", size = 3) +
     # stat_summary(aes(fill = label), fun = mean, geom = "bar", width = .7) +
     # stat_summary(fun.data = "mean_se", geom = "errorbar", width = .15) +
     theme_bw() +
     theme(legend.position = "none",
-          legend.title = element_text(size = 20),
-          legend.text = element_text(size = 16),
+          legend.title = element_text(size = 12),
+          legend.text = element_text(size = 10),
+          panel.spacing = unit(.5, "cm"),
           panel.grid.major.x = element_blank(),
           panel.grid.minor.y = element_blank(),
-          strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
-          strip.background = element_blank(),
-          axis.title.y = element_text(size = 20),
-          axis.text.y = element_text(size = 16),
+          strip.text = element_text(size = 12, margin = unit(rep(.3, 4), "cm")),
+          strip.background = element_rect(fill = "white"),
+          axis.title.y = element_text(size = 12),
+          axis.text.y = element_text(size = 10),
           axis.title.x = element_blank(),
-          axis.text.x = element_text(size = 16, angle = 45, hjust = 1, vjust = 1),
-          plot.margin = unit(c(0, .5, .5, .8), "cm")) +
+          axis.text.x = element_text(size = 10, angle = 45, hjust = 1, vjust = 1)) +
     scale_color_manual(values = c("#7FBC41", "#C51B7D"),name = "Group") +
     scale_x_continuous(limits = c(.8, 3.2), breaks = 1:3,
                        labels = c("Precursor", "Peptide", "Protein")) +
@@ -346,7 +343,7 @@ p_list <- pblapply(unique(sub_mcc_tmp$scenario), function(scenario_id) {
   return(p_i)
 })
 
-figure5c <- plot_grid(plotlist = p_list, ncol = 2);figure5c
+figure5c <- plot_grid(plotlist = p_list, ncol = 2)
 
 
 ## supplementary figure 10c -----------------------
@@ -363,29 +360,30 @@ p_list <- pblapply(unique(sub_mcc_tmp$scenario), function(scenario_id) {
   p_title <- ggplot(sub_mcc_tmp_i) +
     theme_classic() +
     theme(line = element_blank(),
-          strip.text = element_text(size = 20),
-          plot.margin = unit(c(.5, .5, 0, 2.8), "cm"))+
+          strip.text = element_text(size = 14),
+          strip.background = element_rect(linewidth = .7),
+          plot.margin = unit(c(.2, .2, .2, 1.5), "cm"))+
     facet_grid(cols = vars(scenario))
   
   p_mcc_scatter <- ggplot(sub_mcc_tmp_i, aes(x = x_axis, y = value)) +
     # stat_summary(aes(color = label2), fun = mean, geom = "line", size = 1) +
     geom_smooth(aes(group = label2, color = label2), na.rm = TRUE, alpha = .2, method = "loess") +
-    stat_summary(aes(color = label2), fun = mean, geom = "point", size = 5) +
+    stat_summary(aes(color = label2), fun = mean, geom = "point", size = 3) +
     # stat_summary(aes(fill = label2), fun = mean, geom = "bar", width = .7) +
     # stat_summary(fun.data = "mean_se", geom = "errorbar", width = .15) +
     theme_bw() +
     theme(legend.position = "none",
-          legend.title = element_text(size = 20),
-          legend.text = element_text(size = 16),
+          legend.title = element_text(size = 12),
+          legend.text = element_text(size = 10),
+          panel.spacing = unit(.5, "cm"),
           panel.grid.major.x = element_blank(),
           panel.grid.minor.y = element_blank(),
-          strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
-          strip.background = element_blank(),
-          axis.title.y = element_text(size = 20),
-          axis.text.y = element_text(size = 16),
+          strip.text = element_text(size = 12, margin = unit(rep(.3, 4), "cm")),
+          strip.background = element_rect(fill = "white"),
+          axis.title.y = element_text(size = 12),
+          axis.text.y = element_text(size = 10),
           axis.title.x = element_blank(),
-          axis.text.x = element_text(size = 16, angle = 45, hjust = 1, vjust = 1),
-          plot.margin = unit(c(0, .5, .5, .8), "cm")) +
+          axis.text.x = element_text(size = 10, angle = 45, hjust = 1, vjust = 1)) +
     scale_color_manual(values = c("#1B9E77", "#D95F02"),name = "Group") +
     scale_x_continuous(limits = c(.8, 3.2), breaks = 1:3,
                        labels = c("Precursor", "Peptide", "Protein")) +
@@ -399,7 +397,7 @@ p_list <- pblapply(unique(sub_mcc_tmp$scenario), function(scenario_id) {
   return(p_i)
 })
 
-supp10c <- plot_grid(plotlist = p_list, ncol = 2);supp10c
+supp10c <- plot_grid(plotlist = p_list, ncol = 2)
 
 
 ## figure 5d -----------------------
@@ -450,29 +448,30 @@ p_list <- pblapply(unique(sub_pvca_tmp$scenario), function(scenario_id) {
   p_title <- ggplot(sub_pvca_tmp_i) +
     theme_classic() +
     theme(line = element_blank(),
-          strip.text = element_text(size = 20),
-          plot.margin = unit(c(.5, .5, 0, 2.8), "cm"))+
+          strip.text = element_text(size = 14),
+          strip.background = element_rect(linewidth = .7),
+          plot.margin = unit(c(.2, .2, .2, 1.45), "cm"))+
     facet_grid(cols = vars(scenario))
   
   p_pvca_scatter <- ggplot(sub_pvca_tmp_i, aes(x = x_axis, y = proportion)) +
     # stat_summary(aes(color = label), fun = mean, geom = "line", size = 1) +
-    geom_smooth(aes(group = label, color = label), na.rm = TRUE, alpha = .2) +
-    stat_summary(aes(color = label), fun = mean, geom = "point", size = 5) +
+    geom_smooth(aes(group = label, color = label), na.rm = TRUE, alpha = .2, method = "loess") +
+    stat_summary(aes(color = label), fun = mean, geom = "point", size = 3) +
     # stat_summary(aes(fill = label), fun = mean, geom = "bar", width = .7) +
     # stat_summary(fun.data = "mean_se", geom = "errorbar", width = .15) +
     theme_bw() +
     theme(legend.position = "bottom",
-          legend.title = element_text(size = 20),
-          legend.text = element_text(size = 16),
+          legend.title = element_text(size = 12),
+          legend.text = element_text(size = 10),
+          panel.spacing = unit(.5, "cm"),
           panel.grid.major.x = element_blank(),
           panel.grid.minor.y = element_blank(),
-          strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
-          strip.background = element_blank(),
-          axis.title.y = element_text(size = 20),
-          axis.text.y = element_text(size = 16),
+          strip.text = element_text(size = 12, margin = unit(rep(.3, 4), "cm")),
+          strip.background = element_rect(fill = "white"),
+          axis.title.y = element_text(size = 12),
+          axis.text.y = element_text(size = 10),
           axis.title.x = element_blank(),
-          axis.text.x = element_text(size = 16, angle = 45, hjust = 1, vjust = 1),
-          plot.margin = unit(c(0, .5, .5, 1), "cm")) +
+          axis.text.x = element_text(size = 10, angle = 45, hjust = 1, vjust = 1)) +
     scale_color_manual(values = c("#7FBC41", "#C51B7D"), name = "Group") +
     scale_x_continuous(limits = c(.8, 3.2), breaks = 1:3,
                        labels = c("Precursor", "Peptide", "Protein")) +
@@ -481,12 +480,11 @@ p_list <- pblapply(unique(sub_pvca_tmp$scenario), function(scenario_id) {
     facet_wrap(~ label2, ncol = 2, scales = "free_y")
   
   p_i <- plot_grid(p_title, p_pvca_scatter, nrow = 2, rel_heights = c(.1, 1))
-
-  return(p_i)
   
+  return(p_i)
 })
 
-figure5d <- plot_grid(plotlist = p_list, ncol = 2);figure5d
+figure5d <- plot_grid(plotlist = p_list, ncol = 2)
 
 
 ## supplementary figure 10d -----------------------
@@ -501,29 +499,30 @@ p_list <- pblapply(unique(sub_pvca_tmp$scenario), function(scenario_id) {
   p_title <- ggplot(sub_pvca_tmp_i) +
     theme_classic() +
     theme(line = element_blank(),
-          strip.text = element_text(size = 20),
-          plot.margin = unit(c(.5, .5, 0, 2.8), "cm"))+
+          strip.text = element_text(size = 14),
+          strip.background = element_rect(linewidth = .7),
+          plot.margin = unit(c(.2, .2, .2, 1.45), "cm"))+
     facet_grid(cols = vars(scenario))
   
   p_pvca_scatter <- ggplot(sub_pvca_tmp_i, aes(x = x_axis, y = proportion)) +
     # stat_summary(aes(color = label3), fun = mean, geom = "line", size = 1) +
     geom_smooth(aes(group = label3, color = label3), na.rm = TRUE, alpha = .2, method = "loess") +
-    stat_summary(aes(color = label3), fun = mean, geom = "point", size = 5) +
+    stat_summary(aes(color = label3), fun = mean, geom = "point", size = 3) +
     # stat_summary(aes(fill = label3), fun = mean, geom = "bar", width = .7) +
     # stat_summary(fun.data = "mean_se", geom = "errorbar", width = .15) +
     theme_bw() +
     theme(legend.position = "bottom",
-          legend.title = element_text(size = 20),
-          legend.text = element_text(size = 16),
+          legend.title = element_text(size = 12),
+          legend.text = element_text(size = 10),
+          panel.spacing = unit(.5, "cm"),
           panel.grid.major.x = element_blank(),
           panel.grid.minor.y = element_blank(),
-          strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
-          strip.background = element_blank(),
-          axis.title.y = element_text(size = 20),
-          axis.text.y = element_text(size = 16),
+          strip.text = element_text(size = 12, margin = unit(rep(.3, 4), "cm")),
+          strip.background = element_rect(fill = "white"),
+          axis.title.y = element_text(size = 12),
+          axis.text.y = element_text(size = 10),
           axis.title.x = element_blank(),
-          axis.text.x = element_text(size = 16, angle = 45, hjust = 1, vjust = 1),
-          plot.margin = unit(c(0, .5, .5, 1), "cm")) +
+          axis.text.x = element_text(size = 10, angle = 45, hjust = 1, vjust = 1)) +
     scale_color_manual(values = c("#1B9E77", "#D95F02"),name = "Group") +
     scale_x_continuous(limits = c(.8, 3.2), breaks = 1:3,
                        labels = c("Precursor", "Peptide", "Protein")) +
@@ -536,29 +535,33 @@ p_list <- pblapply(unique(sub_pvca_tmp$scenario), function(scenario_id) {
   return(p_i)
 })
 
-supp10d <- plot_grid(plotlist = p_list, ncol = 2);supp10d
+supp10d <- plot_grid(plotlist = p_list, ncol = 2)
 
 
 ## combined supplementary figure10 -----------------------
-supp10ab <- plot_grid(supp10a, supp10b,
+supp10ab <- plot_grid(supp10a + theme(plot.margin = unit(c(.3, .2, .2, .4), "cm")),
+                      supp10b + theme(plot.margin = unit(c(.3, .2, .2, .4), "cm")),
                        ncol = 2,
-                       labels = c("a", "b"), label_size = 24)
+                       labels = c("a", "b"), label_size = 20)
 supp10 <- plot_grid(supp10ab, supp10c, supp10d,
                      nrow = 3, rel_heights = c(.5, 1, 1.05),
-                     labels = c("", "c", "d"), label_size = 24)
+                     labels = c("", "c", "d"), label_size = 20)
 
-ggsave("./results/figures/extended_figure10.pdf", supp10, width = 14, height = 16)
+ggsave("./results/figures/extended_figure10.pdf", supp10,
+       width = 210, height = 297, units = "mm")
 
 
 ## combined figure5 -----------------------
-figure5ab <- plot_grid(figure5a, figure5b,
-                     ncol = 2,
-                     labels = c("a", "b"), label_size = 24)
+figure5ab <- plot_grid(figure5a + theme(plot.margin = unit(c(.3, .2, .2, .4), "cm")),
+                       figure5b + theme(plot.margin = unit(c(.3, .2, .2, .4), "cm")),
+                       ncol = 2,
+                       labels = c("a", "b"), label_size = 20)
 figure5 <- plot_grid(figure5ab, figure5c, figure5d,
                    nrow = 3, rel_heights = c(.5, 1, 1),
-                   labels = c("", "c", "d"), label_size = 24)
+                   labels = c("", "c", "d"), label_size = 20)
 
-ggsave("./results/figures/figure5.pdf", figure5, width = 14, height = 16)
+ggsave("./results/figures/figure5.pdf", figure5,
+       width = 210, height = 297, units = "mm")
 
 
 ## supplementary data table -----------------------

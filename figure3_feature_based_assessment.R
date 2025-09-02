@@ -5,6 +5,7 @@
 library(parallel)
 library(pbapply)
 library(readxl)
+library(openxlsx)
 library(dplyr)
 library(tibble)
 library(reshape2)
@@ -60,72 +61,121 @@ names(dictLabelsBatch) <- c("DDA_APT", "DDA_FDU", "DDA_NVG", "DIA_APT", "DIA_BGI
 dictLabelsCorrectMethods <- c("Ratio", "Med-C", "Combat", "RUV-III-C", "Harmony", "WaveICA2", "NormAE")
 names(dictLabelsCorrectMethods) <- c("ratio", "median", "combat", "ruv", "harmony", "waveica", "normae")
 
+p_format <- function(p_value) {
+  # 设置一个非常小的阈值
+  threshold <- .0001
+  # 如果P值小于阈值，则使用 "<" 符号
+  if (p_value < threshold) {
+    return(paste0("**** (P < 0.0001)"))
+  } else if (p_value < .001) {
+    # 否则，直接格式化P值并添加"P = "前缀
+    return(paste0("*** (P = ", format(p_value, digits = 2), ")", sep = ""))
+  } else if (p_value < .01) {
+    # 否则，直接格式化P值并添加"P = "前缀
+    return(paste0("** (P = ", format(p_value, digits = 2), ")", sep = ""))
+  } else if (p_value < .05) {
+    # 否则，直接格式化P值并添加"P = "前缀
+    return(paste0("* (P = ", format(p_value, digits = 2), ")", sep = ""))
+  } else {
+    return(paste0("NS (P = ", format(p_value, digits = 2), ")", sep = ""))
+  }
+}
+
+
+## source data: Test vs Reference --------------------
+mcc_objs <- readRDS("./results/tables/mcc.rds")
+mcc_objs_tmp <- pblapply(mcc_objs, function(tmp_obj) {
+  df_tmp <- tmp_obj$df %>%
+    distinct(class, value, estimate, dataset, scenario, data_level,
+             correct_level, correct_method, quant_method, label)
+})
+sub_ref_final <- mcc_objs_tmp %>%
+  rbindlist %>%
+  filter(scenario %in% "confounded") %>%
+  filter(data_level %in% "protein") %>%
+  filter(quant_method %in% "maxlfq") %>%
+  filter(correct_method %in% c("ruv", "combat", "ratio")) %>%
+  rename(Reference = value, Test = estimate) %>%
+  mutate_at("data_level", ~ paste(Hmisc::capitalize(.), "-level", sep = "")) %>%
+  mutate_at("correct_level", ~ ifelse(correct_method %in% "log",  "Uncorrected",
+                                      paste(Hmisc::capitalize(.), "-corrected", sep = ""))) %>%
+  mutate_at("scenario", ~ dictLabelsScenario[paste(dataset, ., sep = "_")])%>%
+  mutate_at("correct_method", ~ ifelse(grepl("_log", .), ., dictLabelsCorrectMethods[.]))
+
+write.xlsx(sub_ref_final, "./results/tables/7-TestReference-source_data.xlsx")
+
 
 ## figure 3a ------------------------
 cv_objs <- readRDS("./results/tables/cv.rds")
 cv_objs_tmp <- pblapply(cv_objs, function(tmp_table) {
   tmp_table <- tmp_table %>%
-    select(cv, dataset, scenario, data_level, correct_level, correct_method, quant_method) %>%
-    mutate(label = ifelse(correct_method %in% "log",
-                          "Uncorrected",
-                          paste(Hmisc::capitalize(correct_level), "-corrected", sep = "")))
+    select(any_of(c("precursor", "peptide", "protein")),
+           cv, dataset, scenario, data_level,
+           correct_level, correct_method, quant_method) %>%
+    unite("feature", any_of(c("precursor", "peptide", "protein")),
+          sep = "_", remove = TRUE, na.rm = TRUE)
 })
+
 sub_cv_tmp <- cv_objs_tmp %>%
   rbindlist %>%
   filter(!(is.na(cv) | is.infinite(cv))) %>%
   filter(!grepl("_log", correct_method)) %>%
   filter(data_level %in% "protein") %>%
   filter(quant_method %in% "maxlfq") %>%
+  mutate(label = ifelse(correct_method %in% "log",
+                        "Uncorrected",
+                        paste(Hmisc::capitalize(correct_level), "-corrected", sep = ""))) %>%
   mutate_at("scenario", ~ dictLabelsScenario[paste(dataset, ., sep = "_")]) %>%
   mutate_at("correct_level", ~ factor(., levels = c("precursor", "peptide", "protein"))) %>%
   mutate_at("label", ~ factor(., levels = names(dictColorsLevel)))
 
 sub_cv_stat <- sub_cv_tmp %>%
   filter(!(is.na(cv) | is.infinite(cv))) %>%
-  # filter(cv < 1) %>%
-  group_by(label, scenario) %>%
-  summarise(cv_mean = mean(cv),cv_sd = sd(cv), cv_median = median(cv))
+  group_by(correct_level, scenario, label, quant_method) %>%
+  summarise(cv_median = median(cv), cv_sd = sd(cv),
+            feature_n = length(unique(feature)),
+            total_n = length(cv))
 
 p_cv_box <- ggplot(sub_cv_tmp, aes(x = label, y = cv)) +
-  geom_boxplot(aes(fill = label), width = .7,
+  geom_boxplot(aes(fill = label), width = .7, outlier.size = .5,
                position = position_dodge(width = .8)) +
   geom_signif(comparisons = list(c("Precursor-corrected", "Peptide-corrected"),
                                  c("Precursor-corrected", "Protein-corrected"),
                                  c("Peptide-corrected", "Protein-corrected")),
-              map_signif_level = TRUE,
-              step_increase = .1,
-              tip_length = .01,
-              textsize = 4,
+              map_signif_level = p_format,
+              vjust = -.5,
+              step_increase = .3,
+              tip_length = .03,
+              textsize = 2,
               test = "t.test") +
   theme_bw() +
   theme(legend.position = "top",
-        legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16),
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size = 10),
+        strip.text = element_text(size = 14, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
+        axis.title.y = element_text(size = 14),
         axis.title.x = element_blank(),
-        axis.text.y = element_text(size = 16),
+        axis.text.y = element_text(size = 12),
         axis.text.x = element_blank(),
         panel.grid.major.x = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
+        panel.grid.minor.y = element_blank()) +
   scale_fill_manual(values = dictColorsLevel) +
-  scale_y_continuous(n.breaks = 10, limits = c(0, 6), name = "CV") +
+  scale_y_continuous(n.breaks = 5, name = "CV",
+                     expand = expansion(mult = c(0.05, 0.2))) +
   facet_wrap( ~ scenario, ncol = 4)
 
 figure3a <- p_cv_box
 
 
-
 ## supplementary figure 5a ------------------------
 cv_objs_tmp <- pblapply(cv_objs, function(tmp_table) {
-  sub_tmp <- tmp_table %>%
-    select(cv, dataset, scenario, data_level, correct_level, correct_method, quant_method) %>%
-    mutate(label = ifelse(correct_method %in% "log",
-                          "Uncorrected",
-                          paste(Hmisc::capitalize(correct_level), "-corrected", sep = "")))
-  return(sub_tmp)
+  tmp_table <- tmp_table %>%
+    select(any_of(c("precursor", "peptide", "protein")),
+           cv, dataset, scenario, data_level,
+           correct_level, correct_method, quant_method) %>%
+    unite("feature", any_of(c("precursor", "peptide", "protein")),
+          sep = "_", remove = TRUE, na.rm = TRUE)
 })
 sub_cv_tmp <- cv_objs_tmp %>%
   rbindlist %>%
@@ -137,16 +187,20 @@ sub_cv_tmp <- cv_objs_tmp %>%
   mutate_at("correct_method", ~ ifelse(. %in% "log", "ratio_median_combat_ruv_harmony_waveica_normae", .)) %>%
   tidyr::separate_rows(correct_method, sep = "_") %>%
   # filter(!correct_method %in% "normae") %>%
+  mutate(label = ifelse(correct_method %in% "log",
+                        "Uncorrected",
+                        paste(Hmisc::capitalize(correct_level), "-corrected", sep = ""))) %>%
   mutate_at("scenario", ~ dictLabelsScenario[paste(dataset, ., sep = "_")]) %>%
   mutate_at("correct_level", ~ factor(., levels = c("precursor", "peptide", "protein"))) %>%
   mutate_at("label", ~ factor(., levels = names(dictColorsLevel))) %>%
   mutate(x_axis = as.numeric(label))
 
 sub_cv_stat <- sub_cv_tmp %>%
-  filter(!is.na(cv) | is.infinite(cv)) %>%
-  # filter(cv < 1) %>%
-  group_by(label, correct_method) %>%
-  summarise(cv_mean = mean(cv),cv_sd = sd(cv), cv_median = median(cv))
+  filter(!(is.na(cv) | is.infinite(cv))) %>%
+  group_by(correct_level, scenario, label, correct_method) %>%
+  summarise(cv_median = median(cv), cv_sd = sd(cv),
+            feature_n = length(unique(feature)),
+            total_n = length(cv))
 
 p_cv_bar <- ggplot(sub_cv_tmp, aes(x = label, y = cv)) +
   geom_boxplot(aes(x = label, y = cv, fill = label), width = .7,
@@ -156,33 +210,33 @@ p_cv_bar <- ggplot(sub_cv_tmp, aes(x = label, y = cv)) +
   geom_signif(comparisons = list(c("Uncorrected", "Protein-corrected"),
                                  c("Precursor-corrected", "Protein-corrected"),
                                  c("Peptide-corrected", "Protein-corrected")),
-              map_signif_level = TRUE,
+              map_signif_level = p_format,
               # y_position = 1,
-              step_increase = .1,
-              tip_length = .01,
-              textsize = 4,
+              step_increase = .2,
+              tip_length = .05,
+              textsize = 1.8,
               test = "t.test") +
   theme_bw() +
   theme(legend.position = "top",
-        legend.title = element_text(size = 20),
-        legend.text = element_text(size = 16),
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 12),
+        strip.text = element_text(size = 14, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
+        axis.title.y = element_text(size = 14),
         axis.title.x = element_blank(),
-        axis.text.y = element_text(size = 16),
+        axis.text.y = element_text(size = 12),
         axis.text.x = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.y = element_blank(),
         plot.margin = unit(c(.5, .5, .5, .9), "cm")) +
   scale_fill_manual(values = dictColorsLevel) +
-  scale_y_continuous(n.breaks = 10, name = "CV") +
+  scale_y_continuous(n.breaks = 10, name = "CV",
+                     expand = expansion(mult = c(0.05, 0.1))) +
   facet_wrap( ~ correct_method,
               labeller = as_labeller(dictLabelsCorrectMethods), 
-              nrow = 1);p_cv_bar
+              nrow = 1)
 
 suppl5a <- p_cv_bar
-
 
 
 ## supplementary figure 5b ------------------
@@ -204,7 +258,7 @@ sub_mcc_tmp <- mcc_objs_tmp %>%
 
 sub_mcc_stat <- sub_mcc_tmp %>%
   group_by(label, scenario, quant_method) %>%
-  summarise(mcc_mean = mean(mcc), mcc_sd = sd(mcc))
+  summarise(mcc_mean = mean(mcc), mcc_sd = sd(mcc), n = length(mcc))
 
 p_mcc_bar <- ggplot(sub_mcc_tmp, aes(x = label, y = mcc)) +
   geom_boxplot(aes(fill = label), width = .7,
@@ -213,28 +267,38 @@ p_mcc_bar <- ggplot(sub_mcc_tmp, aes(x = label, y = mcc)) +
   geom_signif(comparisons = list(c("Precursor-corrected", "Peptide-corrected"),
                                  c("Precursor-corrected", "Protein-corrected"),
                                  c("Peptide-corrected", "Protein-corrected")),
-              map_signif_level = TRUE,
-              y_position = .75,
-              step_increase = .1,
-              tip_length = .01,
-              textsize = 4,
+              map_signif_level = p_format,
+              # y_position = .75,
+              step_increase = .2,
+              tip_length = .05,
+              textsize = 2.5,
               test = "t.test") +
   theme_bw() +
   theme(legend.position = "none",
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        strip.text = element_text(size = 14, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
+        axis.title.y = element_text(size = 14),
         axis.title.x = element_blank(),
-        axis.text.y = element_text(size = 16),
-        axis.text.x = element_text(size = 14, angle = 45, hjust = 1, vjust = 1),
+        axis.text.y = element_text(size = 12),
+        axis.text.x = element_text(size = 12, angle = 45, hjust = 1, vjust = 1),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.y = element_blank(),
-        plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
+        plot.margin = unit(c(.5, .2, .5, .35), "cm")) +
   scale_fill_manual(values = dictColorsLevel) +
-  scale_y_continuous(n.breaks = 8, name = "MCC") +
+  scale_y_continuous(n.breaks = 8, name = "MCC",
+                     expand = expansion(mult = c(0.05, 0.2))) +
   facet_grid(cols = vars(quant_method), rows = vars(scenario))
 
 suppl5b <- p_mcc_bar
+
+
+## combind supplementary figure5 -----------------------
+supp5 <- plot_grid(suppl5a, suppl5b,
+                   nrow = 2, rel_heights = c(.6, 1),
+                   labels = c("a", "b"), label_size = 20)
+
+ggsave("./results/figures/extended_figure5.pdf",
+       supp5, width = 210, height = 260, units = "mm")
 
 
 ## figure 3b ------------------
@@ -263,25 +327,25 @@ sub_mcc_stat <- sub_mcc_tmp %>%
 
 p_mcc_bar <- ggplot(sub_mcc_tmp, aes(x = label, y = mcc)) +
   geom_col(aes(fill = label), alpha = .7, width = .05, position = position_dodge(width = .9)) +
-  geom_point(aes(color = label), size = 5, position = position_dodge(width = .9)) +
+  geom_point(aes(color = label), size = 3, position = position_dodge(width = .9)) +
   geom_hline(aes(yintercept = cut_off), lty = 2, col = "red") +
   theme_bw() +
   theme(legend.position = "none",
-        strip.text = element_text(size = 20, margin = unit(rep(.3, 4), "cm")),
+        strip.text = element_text(size = 14, margin = unit(rep(.3, 4), "cm")),
         strip.background = element_rect(fill = "white"),
-        axis.title.y = element_text(size = 20),
+        axis.title.y = element_text(size = 14),
         axis.title.x = element_blank(),
-        axis.text.y = element_text(size = 16),
+        axis.text.y = element_text(size = 12),
         axis.text.x = element_blank(),
         panel.grid.major.x = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        plot.margin = unit(c(.5, .5, .5, .5), "cm")) +
+        panel.grid.minor.y = element_blank()) +
   scale_color_manual(values = dictColorsLevel) +
   scale_fill_manual(values = dictColorsLevel) +
-  scale_y_continuous(n.breaks = 8, name = "MCC") +
+  scale_y_continuous(n.breaks = 5, name = "MCC",
+                     expand = expansion(mult = c(0.05, 0.1))) +
   facet_grid(cols = vars(correct_method), rows = vars(scenario))
 
-figure3b <- p_mcc_bar;figure3b
+figure3b <- p_mcc_bar
 
 
 ## figure 3c -------------------
@@ -309,161 +373,33 @@ sub_ref_tmp <- mcc_objs_tmp %>%
 p_tmp <- ggplot(sub_ref_tmp, aes(x = value, y = estimate)) +
   geom_point(aes(color = label2), alpha = .5, shape = 16) +
   geom_smooth(aes(color = label2), method = "lm") +
-  stat_cor(aes(label = paste(..r.label.., ..p.label.., sep = "~`,`~")), size = 6) +
+  stat_cor(aes(label = paste(..r.label.., ..p.label.., sep = "~`,`~")), size = 3) +
   theme_bw() +
   theme(legend.position = "none",
-        axis.title.x = element_text(size = 20),
-        axis.title.y = element_text(size = 20),
-        axis.text = element_text(size = 16),
-        strip.text = element_text(size = 20),
-        strip.background = element_rect(fill = "white"),
-        plot.margin = unit(c(.2, .5, .5, .5), "cm")) +
+        axis.title = element_text(size = 14),
+        axis.text = element_text(size = 12),
+        strip.text = element_text(size = 12, margin = unit(rep(.3, 4), "cm")),
+        strip.background = element_rect(fill = "white")) +
   scale_linetype_manual(values = c(2, 1)) +
   scale_color_manual(values = dictColorsLevel) +
   scale_y_continuous(limits = c(-1, 1), n.breaks = 5, name = "Test") +
   scale_x_continuous(limits = c(-3.6, 3.6), name = "Reference") +
   facet_grid(cols = vars(label2), rows = vars(correct_method))
 
-figure3c <- p_tmp;figure3c
-
-
-
-## combind supplementary figure5 -----------------------
-supp5 <- plot_grid(suppl5a, suppl5b,
-                   nrow = 2, rel_heights = c(.6, 1),
-                   labels = c("a", "b"), label_size = 24)
-
-ggsave("./results/figures/extended_figure5.pdf",
-       supp5, width = 12, height = 14)
+figure3c <- p_tmp
 
 
 ## combind figure3 -----------------------
 figure3 <- plot_grid(figure3a + theme(panel.spacing = unit(.5, "cm"),
-                                      plot.margin = unit(c(0, 1.7, .5, 1.1), "cm")) +
+                                      plot.margin = unit(c(0, 1.5, .5, .7), "cm")) +
                        labs(fill = "Correction level"),
-                     figure3b + theme(plot.margin = unit(c(.5, .5, .5, 1.1), "cm")),
+                     figure3b + theme(plot.margin = unit(c(.5, .4, .5, .35), "cm")),
                      figure3c + theme(panel.spacing = unit(.5, "cm"),
-                                      plot.margin = unit(c(.5, .5, .5, .7), "cm")),
-                     nrow = 3, rel_heights = c(.8, 1.2, 2),
-                     labels = c("a", "b", "c"), label_size = 24)
+                                      plot.margin = unit(c(.5, .4, .5, .1), "cm")),
+                     nrow = 3, rel_heights = c(.8, 1.1, 2),
+                     labels = c("a", "b", "c"), label_size = 20)
 
 ggsave(paste("./results/figures/figure3.pdf", sep = ""),
-       figure3, width = 14, height = 20)
-
-
-## 弃CV-Rank trend ------------------------
-## get CVs
-cv_objs_tmp <- pblapply(cv_objs, function(tmp_table) {
-  tmp_table <- tmp_table %>%
-    filter(data_level %in% "protein") %>%
-    select(protein, cv, dataset, scenario, data_level, correct_level, correct_method, quant_method) %>%
-    mutate(label = ifelse(correct_method %in% "log",
-                          "Uncorrected",
-                          paste(Hmisc::capitalize(correct_level), "-corrected", sep = "")))
-})
-sub_cv_tmp <- cv_objs_tmp %>%
-  rbindlist %>%
-  filter(!is.na(cv)) %>%
-  filter(!is.infinite(cv)) %>%
-  # filter(cv < 1) %>%
-  filter(!grepl("_log", correct_method)) %>%
-  mutate_at("correct_method", ~ ifelse(. %in% "log", "ratio_median_combat_ruv_harmony_waveica_normae", .)) %>%
-  tidyr::separate_rows(correct_method, sep = "_")
-
-## get rank of intensities
-all_files <- list.files("./data/expfiles", recursive = TRUE, full.names = TRUE)
-queried_files <- all_files[grepl("expdata_log", all_files)]
-queried_files <- queried_files[grepl("protein/", queried_files)]
-rank_tables <- pblapply(queried_files, function(file_id) {
-  dataset <- str_extract(file_id,"(?<=.expfiles/).+?(?=\\/.)")
-  scenario <- str_extract(file_id,"(?<=.(simulated|quartet)/).+?(?=\\/.)")
-  data_level <- str_extract(file_id, sprintf("(?<=.%s/).+?(?=\\/.)", scenario))
-  quant_method <- str_extract(file_id, sprintf("(?<=.%s/).+?(?=\\/.)", data_level))
-  correct_level <- str_extract(file_id, sprintf("(?<=.%s/).+?(?=_corrected.)", quant_method))
-  correct_level <- ifelse(is.na(correct_level), data_level, correct_level)
-  correct_method <- str_extract(file_id,"(?<=expdata_).+?(?=.csv)")
-  
-  file_path <- str_extract(file_id, "^.*\\/(balanced|confounded|simulated)")
-  df_meta <- fread(paste(file_path, "/meta.csv", sep = ""))
-  
-  df_cv <- sub_cv_tmp %>%
-    filter(dataset %in% dataset) %>%
-    filter(scenario %in% scenario) %>%
-    filter(data_level %in% data_level) %>%
-    filter(quant_method %in% quant_method) %>%
-    filter(correct_level %in% correct_level) %>%
-    filter(correct_method %in% correct_method) %>%
-    distinct(protein)
-  
-  expr <- fread(file_id)
-  
-  df_features <- expr %>%
-    tibble::rowid_to_column("feature") %>%
-    distinct(feature, across(any_of(c("precursor", "peptide", "protein", "mz", "rt"))))
-  
-  df_expr <- expr %>%
-    filter(protein %in% df_cv$protein) %>%
-    tibble::rowid_to_column("feature") %>%
-    select(feature, all_of(df_meta$run_id)) %>%
-    reshape2::melt(., id = 1, variable.name = "run_id", na.rm = TRUE) %>%
-    left_join(., df_meta, by = "run_id")
-  
-  df_rank <- df_expr %>%
-    mutate_at("value", exp) %>%
-    filter(value != 0, !is.na(value)) %>%
-    group_by(feature) %>%
-    summarise(mean_value = mean(value), .groups = "drop") %>%
-    ungroup() %>%
-    mutate(rank = rank(-mean_value)) %>%
-    left_join(., df_features, by = "feature") %>%
-    select(!feature) %>%
-    select(any_of(c("precursor", "peptide", "protein", "mz", "rt")), everything()) %>%
-    mutate(dataset = dataset,
-           scenario = scenario,
-           data_level = data_level,
-           correct_level = correct_level,
-           correct_method = correct_method,
-           quant_method = quant_method)
-  
-  return(df_rank)
-})
-sub_rank_tmp <- rank_tables %>%
-  rbindlist(.) %>%
-  mutate_at("correct_method", ~ ifelse(. %in% "log", "log_ratio_median_combat_ruv_harmony_waveica_normae", .)) %>%
-  tidyr::separate_rows(correct_method, sep = "_") %>%
-  select(!correct_method) %>%
-  select(!correct_level)
-
-sub_cv_rank <- sub_cv_tmp %>%
-  left_join(., sub_rank_tmp, relationship = "many-to-many") %>%
-  filter(correct_method %in% "combat") %>%
-  filter(quant_method %in% "maxlfq") %>%
-  mutate_at("scenario", ~ dictLabelsScenario[paste(dataset, ., sep = "_")]) %>%
-  mutate_at("correct_level", ~ factor(., levels = c("precursor", "peptide", "protein"))) %>%
-  mutate_at("label", ~ factor(., levels = names(dictColorsLevel))) %>%
-  na.omit
-
-dictAlphaTmp <- c(0.01, 0.01, 0.1, 0.1)
-names(dictAlphaTmp) <- unique(sub_cv_rank$scenario)
-
-p_tmp <- ggplot(sub_cv_rank, aes(x = rank, y = cv)) +
-  # geom_point(aes(color = label, alpha = scenario), shape = 16) +
-  geom_smooth(aes(color = label), method = "gam", formula = y ~ s(x, bs = "cs")) +
-  theme_bw() +
-  theme(legend.position = "none",
-        axis.title.x = element_text(size = 20),
-        axis.text.x = element_text(size = 12),
-        axis.title.y = element_text(size = 20),
-        axis.text.y = element_text(size = 12),
-        strip.text = element_text(size = 20),
-        strip.background = element_rect(fill = "white"),
-        plot.margin = unit(c(.2, .5, .5, .5), "cm")) +
-  scale_color_manual(values = dictColorsLevel) +
-  # scale_alpha_manual(values = dictAlphaTmp) +
-  scale_y_continuous(n.breaks = 6, name = "CV (%)") +
-  scale_x_continuous(name = "Rank") +
-  facet_wrap(~ scenario, nrow = 1, scales = "free")
-
-figure3b <- p_tmp
+       figure3, width = 210, height = 297, units = "mm")
 
 

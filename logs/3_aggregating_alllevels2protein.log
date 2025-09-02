@@ -1,0 +1,522 @@
+nohup: ignoring input
+- The project is out-of-sync -- use `renv::status()` for details.
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:data.table’:
+
+    between, first, last
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: mgcv
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+Loading required package: genefilter
+Loading required package: BiocParallel
+Loading required package: Rcpp
+Loading required package: RSpectra
+Loading required package: progress
+           used  (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells  6181976 330.2   12044285 643.3  7948547 424.5
+Vcells 10757303  82.1   18333270 139.9 12609164  96.3
+
+[2025-07-08 15:40:29.186197] quantifying /app/data/expfiles/balanced/precursor/expdata_combat.csv
+[2025-07-08 15:50:49.755956] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_combat.csv
+[2025-07-08 15:51:31.399847] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_combat.csv
+[2025-07-08 15:51:41.682849] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_combat.csv
+[2025-07-08 15:51:41.684408] Successfully quantified into peptides.
+
+[2025-07-08 15:51:41.685306] quantifying /app/data/expfiles/balanced/precursor/expdata_harmony.csv
+[2025-07-08 16:01:22.745908] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_harmony.csv
+[2025-07-08 16:01:31.991878] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_harmony.csv
+[2025-07-08 16:02:23.867264] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_harmony.csv
+[2025-07-08 16:02:23.868418] Successfully quantified into peptides.
+
+[2025-07-08 16:02:23.869078] quantifying /app/data/expfiles/balanced/precursor/expdata_median.csv
+[2025-07-08 16:12:00.258229] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_median.csv
+[2025-07-08 16:12:46.03729] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_median.csv
+[2025-07-08 16:13:27.801653] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_median.csv
+[2025-07-08 16:13:27.804118] Successfully quantified into peptides.
+
+[2025-07-08 16:13:27.805251] quantifying /app/data/expfiles/balanced/precursor/expdata_normae.csv
+[2025-07-08 16:13:47.254953] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_normae.csv
+[2025-07-08 16:13:48.161359] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_normae.csv
+[2025-07-08 16:13:52.427431] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_normae.csv
+[2025-07-08 16:13:52.428864] Successfully quantified into peptides.
+
+[2025-07-08 16:13:52.429791] quantifying /app/data/expfiles/balanced/precursor/expdata_ratio.csv
+[2025-07-08 16:17:03.507315] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_ratio.csv
+[2025-07-08 16:17:26.785214] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_ratio.csv
+[2025-07-08 16:17:50.624895] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_ratio.csv
+[2025-07-08 16:17:50.626406] Successfully quantified into peptides.
+
+[2025-07-08 16:17:50.6274] quantifying /app/data/expfiles/balanced/precursor/expdata_ruv.csv
+[2025-07-08 16:24:34.944514] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_ruv.csv
+[2025-07-08 16:24:52.852266] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_ruv.csv
+[2025-07-08 16:25:30.671043] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_ruv.csv
+[2025-07-08 16:25:30.672778] Successfully quantified into peptides.
+
+[2025-07-08 16:25:30.673774] quantifying /app/data/expfiles/balanced/precursor/expdata_waveica.csv
+[2025-07-08 16:34:52.960609] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_waveica.csv
+[2025-07-08 16:35:16.208784] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_waveica.csv
+[2025-07-08 16:36:00.428766] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_waveica.csv
+[2025-07-08 16:36:00.430402] Successfully quantified into peptides.
+
+[2025-07-08 16:36:00.431616] quantifying /app/data/expfiles/confounded/precursor/expdata_combat.csv
+[2025-07-08 16:41:13.000078] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/precursor_corrected/expdata_combat.csv
+[2025-07-08 16:41:43.753676] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/precursor_corrected/expdata_combat.csv
+[2025-07-08 16:42:13.801319] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/precursor_corrected/expdata_combat.csv
+[2025-07-08 16:42:13.805611] Successfully quantified into peptides.
+
+[2025-07-08 16:42:13.806961] quantifying /app/data/expfiles/confounded/precursor/expdata_harmony.csv
+[2025-07-08 16:47:35.565969] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/precursor_corrected/expdata_harmony.csv
+[2025-07-08 16:47:58.084662] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/precursor_corrected/expdata_harmony.csv
+[2025-07-08 16:48:33.040095] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/precursor_corrected/expdata_harmony.csv
+[2025-07-08 16:48:33.041326] Successfully quantified into peptides.
+
+[2025-07-08 16:48:33.042359] quantifying /app/data/expfiles/confounded/precursor/expdata_median.csv
+[2025-07-08 16:53:28.550244] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/precursor_corrected/expdata_median.csv
+[2025-07-08 16:54:13.163139] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/precursor_corrected/expdata_median.csv
+[2025-07-08 16:54:32.087988] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/precursor_corrected/expdata_median.csv
+[2025-07-08 16:54:32.089854] Successfully quantified into peptides.
+
+[2025-07-08 16:54:32.090835] quantifying /app/data/expfiles/confounded/precursor/expdata_ratio.csv
+[2025-07-08 16:56:43.537754] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/precursor_corrected/expdata_ratio.csv
+[2025-07-08 16:56:46.942967] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/precursor_corrected/expdata_ratio.csv
+[2025-07-08 16:57:17.981863] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/precursor_corrected/expdata_ratio.csv
+[2025-07-08 16:57:17.983922] Successfully quantified into peptides.
+
+[2025-07-08 16:57:17.984954] quantifying /app/data/expfiles/confounded/precursor/expdata_ruv.csv
+[2025-07-08 17:00:18.976014] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:00:45.365106] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:01:05.703777] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:01:05.705166] Successfully quantified into peptides.
+
+[2025-07-08 17:01:05.705816] quantifying /app/data/expfiles/confounded/precursor/expdata_waveica.csv
+[2025-07-08 17:05:56.228281] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:06:36.939907] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:07:11.395339] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:07:11.397079] Successfully quantified into peptides.
+
+[2025-07-08 17:07:11.398004] quantifying /app/data/expfiles/simulated/precursor/expdata_combat.csv
+[2025-07-08 17:07:19.82715] Successfully saved: /app/data/expfiles/simulated/peptide/maxlfq/precursor_corrected/expdata_combat.csv
+[2025-07-08 17:07:21.430787] Successfully saved: /app/data/expfiles/simulated/peptide/ibaq/precursor_corrected/expdata_combat.csv
+[2025-07-08 17:07:24.649858] Successfully saved: /app/data/expfiles/simulated/peptide/toppep3/precursor_corrected/expdata_combat.csv
+[2025-07-08 17:07:24.651995] Successfully quantified into peptides.
+
+[2025-07-08 17:07:24.653176] quantifying /app/data/expfiles/simulated/precursor/expdata_harmony.csv
+[2025-07-08 17:07:33.470167] Successfully saved: /app/data/expfiles/simulated/peptide/maxlfq/precursor_corrected/expdata_harmony.csv
+[2025-07-08 17:07:34.760929] Successfully saved: /app/data/expfiles/simulated/peptide/ibaq/precursor_corrected/expdata_harmony.csv
+[2025-07-08 17:07:37.185381] Successfully saved: /app/data/expfiles/simulated/peptide/toppep3/precursor_corrected/expdata_harmony.csv
+[2025-07-08 17:07:37.186842] Successfully quantified into peptides.
+
+[2025-07-08 17:07:37.187804] quantifying /app/data/expfiles/simulated/precursor/expdata_median.csv
+[2025-07-08 17:07:45.806331] Successfully saved: /app/data/expfiles/simulated/peptide/maxlfq/precursor_corrected/expdata_median.csv
+[2025-07-08 17:07:48.430286] Successfully saved: /app/data/expfiles/simulated/peptide/ibaq/precursor_corrected/expdata_median.csv
+[2025-07-08 17:07:51.534155] Successfully saved: /app/data/expfiles/simulated/peptide/toppep3/precursor_corrected/expdata_median.csv
+[2025-07-08 17:07:51.535543] Successfully quantified into peptides.
+
+[2025-07-08 17:07:51.536484] quantifying /app/data/expfiles/simulated/precursor/expdata_ratio.csv
+[2025-07-08 17:08:00.106676] Successfully saved: /app/data/expfiles/simulated/peptide/maxlfq/precursor_corrected/expdata_ratio.csv
+[2025-07-08 17:08:03.460834] Successfully saved: /app/data/expfiles/simulated/peptide/ibaq/precursor_corrected/expdata_ratio.csv
+[2025-07-08 17:08:06.288164] Successfully saved: /app/data/expfiles/simulated/peptide/toppep3/precursor_corrected/expdata_ratio.csv
+[2025-07-08 17:08:06.289577] Successfully quantified into peptides.
+
+[2025-07-08 17:08:06.290518] quantifying /app/data/expfiles/simulated/precursor/expdata_ruv.csv
+[2025-07-08 17:08:11.571577] Successfully saved: /app/data/expfiles/simulated/peptide/maxlfq/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:08:13.738681] Successfully saved: /app/data/expfiles/simulated/peptide/ibaq/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:08:15.160558] Successfully saved: /app/data/expfiles/simulated/peptide/toppep3/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:08:15.161794] Successfully quantified into peptides.
+
+[2025-07-08 17:08:15.162314] quantifying /app/data/expfiles/simulated/precursor/expdata_waveica.csv
+[2025-07-08 17:08:28.42976] Successfully saved: /app/data/expfiles/simulated/peptide/maxlfq/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:08:30.813905] Successfully saved: /app/data/expfiles/simulated/peptide/ibaq/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:08:32.741547] Successfully saved: /app/data/expfiles/simulated/peptide/toppep3/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:08:32.742638] Successfully quantified into peptides.
+           used  (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells  6255077 334.1   12044285 643.3  7948547 424.5
+Vcells 11157657  85.2   76786180 585.9 95982339 732.3
+
+[2025-07-08 17:08:34.11496] quantifying /app/data/expfiles/balanced/peptide/ibaq/expdata_combat.csv
+[2025-07-08 17:09:28.533905] Successfully quantified into proteins.
+
+[2025-07-08 17:09:28.534475] quantifying /app/data/expfiles/balanced/peptide/ibaq/expdata_harmony.csv
+[2025-07-08 17:10:22.716559] Successfully quantified into proteins.
+
+[2025-07-08 17:10:22.717687] quantifying /app/data/expfiles/balanced/peptide/ibaq/expdata_median.csv
+[2025-07-08 17:11:18.759831] Successfully quantified into proteins.
+
+[2025-07-08 17:11:18.760252] quantifying /app/data/expfiles/balanced/peptide/ibaq/expdata_ratio.csv
+[2025-07-08 17:12:14.152804] Successfully quantified into proteins.
+
+[2025-07-08 17:12:14.153634] quantifying /app/data/expfiles/balanced/peptide/ibaq/expdata_ruv.csv
+[2025-07-08 17:13:09.033782] Successfully quantified into proteins.
+
+[2025-07-08 17:13:09.034273] quantifying /app/data/expfiles/balanced/peptide/ibaq/expdata_waveica.csv
+[2025-07-08 17:14:03.687758] Successfully quantified into proteins.
+
+[2025-07-08 17:14:03.688411] quantifying /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_combat.csv
+[2025-07-08 17:14:57.198063] Successfully quantified into proteins.
+
+[2025-07-08 17:14:57.198629] quantifying /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_harmony.csv
+[2025-07-08 17:15:52.011483] Successfully quantified into proteins.
+
+[2025-07-08 17:15:52.011908] quantifying /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_median.csv
+[2025-07-08 17:16:44.97294] Successfully quantified into proteins.
+
+[2025-07-08 17:16:44.973363] quantifying /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_normae.csv
+[2025-07-08 17:16:48.883205] Successfully quantified into proteins.
+
+[2025-07-08 17:16:48.883717] quantifying /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_ratio.csv
+[2025-07-08 17:17:16.046166] Successfully quantified into proteins.
+
+[2025-07-08 17:17:16.046762] quantifying /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:17:53.617968] Successfully quantified into proteins.
+
+[2025-07-08 17:17:53.61884] quantifying /app/data/expfiles/balanced/peptide/ibaq/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:18:49.215431] Successfully quantified into proteins.
+
+[2025-07-08 17:18:49.215937] quantifying /app/data/expfiles/balanced/peptide/maxlfq/expdata_combat.csv
+[2025-07-08 17:19:37.832356] Successfully quantified into proteins.
+
+[2025-07-08 17:19:37.833429] quantifying /app/data/expfiles/balanced/peptide/maxlfq/expdata_harmony.csv
+[2025-07-08 17:20:30.030535] Successfully quantified into proteins.
+
+[2025-07-08 17:20:30.031077] quantifying /app/data/expfiles/balanced/peptide/maxlfq/expdata_median.csv
+[2025-07-08 17:21:27.961657] Successfully quantified into proteins.
+
+[2025-07-08 17:21:27.962169] quantifying /app/data/expfiles/balanced/peptide/maxlfq/expdata_ratio.csv
+[2025-07-08 17:22:27.964144] Successfully quantified into proteins.
+
+[2025-07-08 17:22:27.964539] quantifying /app/data/expfiles/balanced/peptide/maxlfq/expdata_ruv.csv
+[2025-07-08 17:23:20.732603] Successfully quantified into proteins.
+
+[2025-07-08 17:23:20.733299] quantifying /app/data/expfiles/balanced/peptide/maxlfq/expdata_waveica.csv
+[2025-07-08 17:24:11.502991] Successfully quantified into proteins.
+
+[2025-07-08 17:24:11.50355] quantifying /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_combat.csv
+[2025-07-08 17:25:03.114643] Successfully quantified into proteins.
+
+[2025-07-08 17:25:03.115102] quantifying /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_harmony.csv
+[2025-07-08 17:25:57.218302] Successfully quantified into proteins.
+
+[2025-07-08 17:25:57.219132] quantifying /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_median.csv
+[2025-07-08 17:26:53.699497] Successfully quantified into proteins.
+
+[2025-07-08 17:26:53.699996] quantifying /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_normae.csv
+[2025-07-08 17:26:56.203359] Successfully quantified into proteins.
+
+[2025-07-08 17:26:56.203809] quantifying /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_ratio.csv
+[2025-07-08 17:27:20.940222] Successfully quantified into proteins.
+
+[2025-07-08 17:27:20.940873] quantifying /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:27:57.285763] Successfully quantified into proteins.
+
+[2025-07-08 17:27:57.286268] quantifying /app/data/expfiles/balanced/peptide/maxlfq/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:29:01.684369] Successfully quantified into proteins.
+
+[2025-07-08 17:29:01.684818] quantifying /app/data/expfiles/balanced/peptide/toppep3/expdata_combat.csv
+[2025-07-08 17:29:54.69788] Successfully quantified into proteins.
+
+[2025-07-08 17:29:54.698376] quantifying /app/data/expfiles/balanced/peptide/toppep3/expdata_harmony.csv
+[2025-07-08 17:30:49.160223] Successfully quantified into proteins.
+
+[2025-07-08 17:30:49.16066] quantifying /app/data/expfiles/balanced/peptide/toppep3/expdata_median.csv
+[2025-07-08 17:31:41.883489] Successfully quantified into proteins.
+
+[2025-07-08 17:31:41.883929] quantifying /app/data/expfiles/balanced/peptide/toppep3/expdata_ratio.csv
+[2025-07-08 17:32:36.162283] Successfully quantified into proteins.
+
+[2025-07-08 17:32:36.163164] quantifying /app/data/expfiles/balanced/peptide/toppep3/expdata_ruv.csv
+[2025-07-08 17:33:31.144044] Successfully quantified into proteins.
+
+[2025-07-08 17:33:31.144552] quantifying /app/data/expfiles/balanced/peptide/toppep3/expdata_waveica.csv
+[2025-07-08 17:34:23.534484] Successfully quantified into proteins.
+
+[2025-07-08 17:34:23.534909] quantifying /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_combat.csv
+[2025-07-08 17:35:17.106751] Successfully quantified into proteins.
+
+[2025-07-08 17:35:17.107392] quantifying /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_harmony.csv
+[2025-07-08 17:36:11.267668] Successfully quantified into proteins.
+
+[2025-07-08 17:36:11.268137] quantifying /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_median.csv
+[2025-07-08 17:37:13.417575] Successfully quantified into proteins.
+
+[2025-07-08 17:37:13.417993] quantifying /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_normae.csv
+[2025-07-08 17:37:18.807331] Successfully quantified into proteins.
+
+[2025-07-08 17:37:18.807794] quantifying /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_ratio.csv
+[2025-07-08 17:37:48.336534] Successfully quantified into proteins.
+
+[2025-07-08 17:37:48.336962] quantifying /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:38:23.652817] Successfully quantified into proteins.
+
+[2025-07-08 17:38:23.653321] quantifying /app/data/expfiles/balanced/peptide/toppep3/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:39:17.957336] Successfully quantified into proteins.
+
+[2025-07-08 17:39:17.957774] quantifying /app/data/expfiles/confounded/peptide/ibaq/expdata_combat.csv
+[2025-07-08 17:39:46.52387] Successfully quantified into proteins.
+
+[2025-07-08 17:39:46.524598] quantifying /app/data/expfiles/confounded/peptide/ibaq/expdata_harmony.csv
+[2025-07-08 17:40:18.445526] Successfully quantified into proteins.
+
+[2025-07-08 17:40:18.446101] quantifying /app/data/expfiles/confounded/peptide/ibaq/expdata_median.csv
+[2025-07-08 17:40:46.073753] Successfully quantified into proteins.
+
+[2025-07-08 17:40:46.074973] quantifying /app/data/expfiles/confounded/peptide/ibaq/expdata_ratio.csv
+[2025-07-08 17:41:18.375578] Successfully quantified into proteins.
+
+[2025-07-08 17:41:18.376132] quantifying /app/data/expfiles/confounded/peptide/ibaq/expdata_ruv.csv
+[2025-07-08 17:41:44.974213] Successfully quantified into proteins.
+
+[2025-07-08 17:41:44.974611] quantifying /app/data/expfiles/confounded/peptide/ibaq/expdata_waveica.csv
+[2025-07-08 17:42:10.088082] Successfully quantified into proteins.
+
+[2025-07-08 17:42:10.088644] quantifying /app/data/expfiles/confounded/peptide/ibaq/precursor_corrected/expdata_combat.csv
+[2025-07-08 17:42:37.253394] Successfully quantified into proteins.
+
+[2025-07-08 17:42:37.253946] quantifying /app/data/expfiles/confounded/peptide/ibaq/precursor_corrected/expdata_harmony.csv
+[2025-07-08 17:43:04.075851] Successfully quantified into proteins.
+
+[2025-07-08 17:43:04.076492] quantifying /app/data/expfiles/confounded/peptide/ibaq/precursor_corrected/expdata_median.csv
+[2025-07-08 17:43:29.201806] Successfully quantified into proteins.
+
+[2025-07-08 17:43:29.202254] quantifying /app/data/expfiles/confounded/peptide/ibaq/precursor_corrected/expdata_ratio.csv
+[2025-07-08 17:43:47.865511] Successfully quantified into proteins.
+
+[2025-07-08 17:43:47.865994] quantifying /app/data/expfiles/confounded/peptide/ibaq/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:44:06.554513] Successfully quantified into proteins.
+
+[2025-07-08 17:44:06.555152] quantifying /app/data/expfiles/confounded/peptide/ibaq/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:44:33.963149] Successfully quantified into proteins.
+
+[2025-07-08 17:44:33.96376] quantifying /app/data/expfiles/confounded/peptide/maxlfq/expdata_combat.csv
+[2025-07-08 17:44:59.479007] Successfully quantified into proteins.
+
+[2025-07-08 17:44:59.479711] quantifying /app/data/expfiles/confounded/peptide/maxlfq/expdata_harmony.csv
+[2025-07-08 17:45:32.508076] Successfully quantified into proteins.
+
+[2025-07-08 17:45:32.508626] quantifying /app/data/expfiles/confounded/peptide/maxlfq/expdata_median.csv
+[2025-07-08 17:45:58.0111] Successfully quantified into proteins.
+
+[2025-07-08 17:45:58.011887] quantifying /app/data/expfiles/confounded/peptide/maxlfq/expdata_ratio.csv
+[2025-07-08 17:46:26.597856] Successfully quantified into proteins.
+
+[2025-07-08 17:46:26.598503] quantifying /app/data/expfiles/confounded/peptide/maxlfq/expdata_ruv.csv
+[2025-07-08 17:46:55.698625] Successfully quantified into proteins.
+
+[2025-07-08 17:46:55.699152] quantifying /app/data/expfiles/confounded/peptide/maxlfq/expdata_waveica.csv
+[2025-07-08 17:47:20.374115] Successfully quantified into proteins.
+
+[2025-07-08 17:47:20.374669] quantifying /app/data/expfiles/confounded/peptide/maxlfq/precursor_corrected/expdata_combat.csv
+[2025-07-08 17:47:44.501654] Successfully quantified into proteins.
+
+[2025-07-08 17:47:44.502095] quantifying /app/data/expfiles/confounded/peptide/maxlfq/precursor_corrected/expdata_harmony.csv
+[2025-07-08 17:48:08.95218] Successfully quantified into proteins.
+
+[2025-07-08 17:48:08.953512] quantifying /app/data/expfiles/confounded/peptide/maxlfq/precursor_corrected/expdata_median.csv
+[2025-07-08 17:48:39.027344] Successfully quantified into proteins.
+
+[2025-07-08 17:48:39.02786] quantifying /app/data/expfiles/confounded/peptide/maxlfq/precursor_corrected/expdata_ratio.csv
+[2025-07-08 17:48:54.933581] Successfully quantified into proteins.
+
+[2025-07-08 17:48:54.934047] quantifying /app/data/expfiles/confounded/peptide/maxlfq/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:49:13.641184] Successfully quantified into proteins.
+
+[2025-07-08 17:49:13.641896] quantifying /app/data/expfiles/confounded/peptide/maxlfq/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:49:40.974201] Successfully quantified into proteins.
+
+[2025-07-08 17:49:40.974856] quantifying /app/data/expfiles/confounded/peptide/toppep3/expdata_combat.csv
+[2025-07-08 17:50:08.827891] Successfully quantified into proteins.
+
+[2025-07-08 17:50:08.828372] quantifying /app/data/expfiles/confounded/peptide/toppep3/expdata_harmony.csv
+[2025-07-08 17:50:39.049669] Successfully quantified into proteins.
+
+[2025-07-08 17:50:39.050402] quantifying /app/data/expfiles/confounded/peptide/toppep3/expdata_median.csv
+[2025-07-08 17:51:07.529999] Successfully quantified into proteins.
+
+[2025-07-08 17:51:07.530531] quantifying /app/data/expfiles/confounded/peptide/toppep3/expdata_ratio.csv
+[2025-07-08 17:51:38.007576] Successfully quantified into proteins.
+
+[2025-07-08 17:51:38.008049] quantifying /app/data/expfiles/confounded/peptide/toppep3/expdata_ruv.csv
+[2025-07-08 17:52:06.479242] Successfully quantified into proteins.
+
+[2025-07-08 17:52:06.479655] quantifying /app/data/expfiles/confounded/peptide/toppep3/expdata_waveica.csv
+[2025-07-08 17:52:35.568634] Successfully quantified into proteins.
+
+[2025-07-08 17:52:35.569183] quantifying /app/data/expfiles/confounded/peptide/toppep3/precursor_corrected/expdata_combat.csv
+[2025-07-08 17:53:13.036756] Successfully quantified into proteins.
+
+[2025-07-08 17:53:13.037313] quantifying /app/data/expfiles/confounded/peptide/toppep3/precursor_corrected/expdata_harmony.csv
+[2025-07-08 17:53:42.26278] Successfully quantified into proteins.
+
+[2025-07-08 17:53:42.263303] quantifying /app/data/expfiles/confounded/peptide/toppep3/precursor_corrected/expdata_median.csv
+[2025-07-08 17:54:12.007433] Successfully quantified into proteins.
+
+[2025-07-08 17:54:12.008305] quantifying /app/data/expfiles/confounded/peptide/toppep3/precursor_corrected/expdata_ratio.csv
+[2025-07-08 17:54:34.808437] Successfully quantified into proteins.
+
+[2025-07-08 17:54:34.808903] quantifying /app/data/expfiles/confounded/peptide/toppep3/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:54:59.858541] Successfully quantified into proteins.
+
+[2025-07-08 17:54:59.859156] quantifying /app/data/expfiles/confounded/peptide/toppep3/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:55:28.393844] Successfully quantified into proteins.
+
+[2025-07-08 17:55:28.394403] quantifying /app/data/expfiles/simulated/peptide/ibaq/expdata_combat.csv
+[2025-07-08 17:55:29.755179] Successfully quantified into proteins.
+
+[2025-07-08 17:55:29.755887] quantifying /app/data/expfiles/simulated/peptide/ibaq/expdata_harmony.csv
+[2025-07-08 17:55:31.714547] Successfully quantified into proteins.
+
+[2025-07-08 17:55:31.715568] quantifying /app/data/expfiles/simulated/peptide/ibaq/expdata_median.csv
+[2025-07-08 17:55:34.050913] Successfully quantified into proteins.
+
+[2025-07-08 17:55:34.0518] quantifying /app/data/expfiles/simulated/peptide/ibaq/expdata_ratio.csv
+[2025-07-08 17:55:35.967508] Successfully quantified into proteins.
+
+[2025-07-08 17:55:35.968405] quantifying /app/data/expfiles/simulated/peptide/ibaq/expdata_ruv.csv
+[2025-07-08 17:55:37.933177] Successfully quantified into proteins.
+
+[2025-07-08 17:55:37.934158] quantifying /app/data/expfiles/simulated/peptide/ibaq/expdata_waveica.csv
+[2025-07-08 17:55:40.088041] Successfully quantified into proteins.
+
+[2025-07-08 17:55:40.088813] quantifying /app/data/expfiles/simulated/peptide/ibaq/precursor_corrected/expdata_combat.csv
+[2025-07-08 17:55:41.653359] Successfully quantified into proteins.
+
+[2025-07-08 17:55:41.654474] quantifying /app/data/expfiles/simulated/peptide/ibaq/precursor_corrected/expdata_harmony.csv
+[2025-07-08 17:55:43.292475] Successfully quantified into proteins.
+
+[2025-07-08 17:55:43.293058] quantifying /app/data/expfiles/simulated/peptide/ibaq/precursor_corrected/expdata_median.csv
+[2025-07-08 17:55:44.914087] Successfully quantified into proteins.
+
+[2025-07-08 17:55:44.914917] quantifying /app/data/expfiles/simulated/peptide/ibaq/precursor_corrected/expdata_ratio.csv
+[2025-07-08 17:55:46.640802] Successfully quantified into proteins.
+
+[2025-07-08 17:55:46.643911] quantifying /app/data/expfiles/simulated/peptide/ibaq/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:55:48.238294] Successfully quantified into proteins.
+
+[2025-07-08 17:55:48.239435] quantifying /app/data/expfiles/simulated/peptide/ibaq/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:55:49.686253] Successfully quantified into proteins.
+
+[2025-07-08 17:55:49.687015] quantifying /app/data/expfiles/simulated/peptide/maxlfq/expdata_combat.csv
+[2025-07-08 17:55:51.079957] Successfully quantified into proteins.
+
+[2025-07-08 17:55:51.080752] quantifying /app/data/expfiles/simulated/peptide/maxlfq/expdata_harmony.csv
+[2025-07-08 17:55:52.472618] Successfully quantified into proteins.
+
+[2025-07-08 17:55:52.473219] quantifying /app/data/expfiles/simulated/peptide/maxlfq/expdata_median.csv
+[2025-07-08 17:55:53.892631] Successfully quantified into proteins.
+
+[2025-07-08 17:55:53.895703] quantifying /app/data/expfiles/simulated/peptide/maxlfq/expdata_ratio.csv
+[2025-07-08 17:55:55.478543] Successfully quantified into proteins.
+
+[2025-07-08 17:55:55.479611] quantifying /app/data/expfiles/simulated/peptide/maxlfq/expdata_ruv.csv
+[2025-07-08 17:55:57.018402] Successfully quantified into proteins.
+
+[2025-07-08 17:55:57.019054] quantifying /app/data/expfiles/simulated/peptide/maxlfq/expdata_waveica.csv
+[2025-07-08 17:55:58.530244] Successfully quantified into proteins.
+
+[2025-07-08 17:55:58.531148] quantifying /app/data/expfiles/simulated/peptide/maxlfq/precursor_corrected/expdata_combat.csv
+[2025-07-08 17:56:00.003512] Successfully quantified into proteins.
+
+[2025-07-08 17:56:00.004378] quantifying /app/data/expfiles/simulated/peptide/maxlfq/precursor_corrected/expdata_harmony.csv
+[2025-07-08 17:56:01.334691] Successfully quantified into proteins.
+
+[2025-07-08 17:56:01.335369] quantifying /app/data/expfiles/simulated/peptide/maxlfq/precursor_corrected/expdata_median.csv
+[2025-07-08 17:56:02.713135] Successfully quantified into proteins.
+
+[2025-07-08 17:56:02.71386] quantifying /app/data/expfiles/simulated/peptide/maxlfq/precursor_corrected/expdata_ratio.csv
+[2025-07-08 17:56:04.152387] Successfully quantified into proteins.
+
+[2025-07-08 17:56:04.153095] quantifying /app/data/expfiles/simulated/peptide/maxlfq/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:56:05.457808] Successfully quantified into proteins.
+
+[2025-07-08 17:56:05.45852] quantifying /app/data/expfiles/simulated/peptide/maxlfq/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:56:06.859278] Successfully quantified into proteins.
+
+[2025-07-08 17:56:06.860004] quantifying /app/data/expfiles/simulated/peptide/toppep3/expdata_combat.csv
+[2025-07-08 17:56:08.43009] Successfully quantified into proteins.
+
+[2025-07-08 17:56:08.430727] quantifying /app/data/expfiles/simulated/peptide/toppep3/expdata_harmony.csv
+[2025-07-08 17:56:09.852804] Successfully quantified into proteins.
+
+[2025-07-08 17:56:09.853488] quantifying /app/data/expfiles/simulated/peptide/toppep3/expdata_median.csv
+[2025-07-08 17:56:12.847641] Successfully quantified into proteins.
+
+[2025-07-08 17:56:12.848141] quantifying /app/data/expfiles/simulated/peptide/toppep3/expdata_ratio.csv
+[2025-07-08 17:56:14.104387] Successfully quantified into proteins.
+
+[2025-07-08 17:56:14.105082] quantifying /app/data/expfiles/simulated/peptide/toppep3/expdata_ruv.csv
+[2025-07-08 17:56:15.59377] Successfully quantified into proteins.
+
+[2025-07-08 17:56:15.594501] quantifying /app/data/expfiles/simulated/peptide/toppep3/expdata_waveica.csv
+[2025-07-08 17:56:17.18418] Successfully quantified into proteins.
+
+[2025-07-08 17:56:17.184773] quantifying /app/data/expfiles/simulated/peptide/toppep3/precursor_corrected/expdata_combat.csv
+[2025-07-08 17:56:19.508171] Successfully quantified into proteins.
+
+[2025-07-08 17:56:19.508575] quantifying /app/data/expfiles/simulated/peptide/toppep3/precursor_corrected/expdata_harmony.csv
+[2025-07-08 17:56:20.96917] Successfully quantified into proteins.
+
+[2025-07-08 17:56:20.969982] quantifying /app/data/expfiles/simulated/peptide/toppep3/precursor_corrected/expdata_median.csv
+[2025-07-08 17:56:22.521641] Successfully quantified into proteins.
+
+[2025-07-08 17:56:22.522383] quantifying /app/data/expfiles/simulated/peptide/toppep3/precursor_corrected/expdata_ratio.csv
+[2025-07-08 17:56:24.463153] Successfully quantified into proteins.
+
+[2025-07-08 17:56:24.463928] quantifying /app/data/expfiles/simulated/peptide/toppep3/precursor_corrected/expdata_ruv.csv
+[2025-07-08 17:56:26.270992] Successfully quantified into proteins.
+
+[2025-07-08 17:56:26.271679] quantifying /app/data/expfiles/simulated/peptide/toppep3/precursor_corrected/expdata_waveica.csv
+[2025-07-08 17:56:28.274935] Successfully quantified into proteins.
+Warning messages:
+1: Using an external vector in selections was deprecated in tidyselect 1.1.0.
+ℹ Please use `all_of()` or `any_of()` instead.
+  # Was:
+  data %>% select(sample.id.header)
+
+  # Now:
+  data %>% select(all_of(sample.id.header))
+
+See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>. 
+2: Using an external vector in selections was deprecated in tidyselect 1.1.0.
+ℹ Please use `all_of()` or `any_of()` instead.
+  # Was:
+  data %>% select(group.header)
+
+  # Now:
+  data %>% select(all_of(group.header))
+
+See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>. 
+3: Using an external vector in selections was deprecated in tidyselect 1.1.0.
+ℹ Please use `all_of()` or `any_of()` instead.
+  # Was:
+  data %>% select(subgroup.header)
+
+  # Now:
+  data %>% select(all_of(subgroup.header))
+
+See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>. 
+4: Using an external vector in selections was deprecated in tidyselect 1.1.0.
+ℹ Please use `all_of()` or `any_of()` instead.
+  # Was:
+  data %>% select(intensity.header)
+
+  # Now:
+  data %>% select(all_of(intensity.header))
+
+See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>. 

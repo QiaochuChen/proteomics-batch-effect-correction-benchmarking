@@ -1,0 +1,129 @@
+nohup: ignoring input
+- The project is out-of-sync -- use `renv::status()` for details.
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:data.table’:
+
+    between, first, last
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: mgcv
+Loading required package: nlme
+
+Attaching package: ‘nlme’
+
+The following object is masked from ‘package:dplyr’:
+
+    collapse
+
+This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+Loading required package: genefilter
+Loading required package: BiocParallel
+Loading required package: Rcpp
+Loading required package: RSpectra
+Loading required package: progress
+           used  (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells  6180596 330.1   12054047 643.8  7912494 422.6
+Vcells 10753882  82.1   18334923 139.9 12610310  96.3
+[1] "./data/expfiles/balanced/precursor/expdata_log.csv"
+[1] "./data/expfiles/confounded/precursor/expdata_log.csv"
+[1] "./data/expfiles/simulated/precursor/expdata_log.csv"
+           used  (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells  6253393 334.0   12054047 643.8  7912494 422.6
+Vcells 11120951  84.9   77095317 588.2 94971090 724.6
+[1] "./data/expfiles/balanced/peptide/ibaq/expdata_log.csv"
+[1] "./data/expfiles/balanced/peptide/maxlfq/expdata_log.csv"
+[1] "./data/expfiles/balanced/peptide/toppep3/expdata_log.csv"
+[1] "./data/expfiles/confounded/peptide/ibaq/expdata_log.csv"
+[1] "./data/expfiles/confounded/peptide/maxlfq/expdata_log.csv"
+[1] "./data/expfiles/confounded/peptide/toppep3/expdata_log.csv"
+[1] "./data/expfiles/simulated/peptide/ibaq/expdata_log.csv"
+[1] "./data/expfiles/simulated/peptide/maxlfq/expdata_log.csv"
+[1] "./data/expfiles/simulated/peptide/toppep3/expdata_log.csv"
+Warning messages:
+1: Using an external vector in selections was deprecated in tidyselect 1.1.0.
+ℹ Please use `all_of()` or `any_of()` instead.
+  # Was:
+  data %>% select(sample.id.header)
+
+  # Now:
+  data %>% select(all_of(sample.id.header))
+
+See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>. 
+2: Using an external vector in selections was deprecated in tidyselect 1.1.0.
+ℹ Please use `all_of()` or `any_of()` instead.
+  # Was:
+  data %>% select(group.header)
+
+  # Now:
+  data %>% select(all_of(group.header))
+
+See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>. 
+3: Using an external vector in selections was deprecated in tidyselect 1.1.0.
+ℹ Please use `all_of()` or `any_of()` instead.
+  # Was:
+  data %>% select(subgroup.header)
+
+  # Now:
+  data %>% select(all_of(subgroup.header))
+
+See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>. 
+4: Using an external vector in selections was deprecated in tidyselect 1.1.0.
+ℹ Please use `all_of()` or `any_of()` instead.
+  # Was:
+  data %>% select(intensity.header)
+
+  # Now:
+  data %>% select(all_of(intensity.header))
+
+See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>. 
+
+[2025-07-08 14:29:31.803964] processing /app/data/expfiles/balanced/peptide/ibaq/expdata_log.csv
+[2025-07-08 14:29:46.42882] Successfully saved: /app/data/expfiles/balanced/peptide/ibaq/anova_twoway_test.csv
+
+[2025-07-08 14:29:46.429344] processing /app/data/expfiles/balanced/peptide/maxlfq/expdata_log.csv
+[2025-07-08 14:29:57.445603] Successfully saved: /app/data/expfiles/balanced/peptide/maxlfq/anova_twoway_test.csv
+
+[2025-07-08 14:29:57.446152] processing /app/data/expfiles/balanced/peptide/toppep3/expdata_log.csv
+[2025-07-08 14:30:08.988739] Successfully saved: /app/data/expfiles/balanced/peptide/toppep3/anova_twoway_test.csv
+
+[2025-07-08 14:30:08.989285] processing /app/data/expfiles/balanced/precursor/expdata_log.csv
+[2025-07-08 14:30:20.128914] Successfully saved: /app/data/expfiles/balanced/precursor/anova_twoway_test.csv
+
+[2025-07-08 14:30:20.129446] processing /app/data/expfiles/balanced/protein/ibaq/expdata_log.csv
+[2025-07-08 14:30:31.456069] Successfully saved: /app/data/expfiles/balanced/protein/ibaq/anova_twoway_test.csv
+
+[2025-07-08 14:30:31.456505] processing /app/data/expfiles/balanced/protein/maxlfq/expdata_log.csv
+[2025-07-08 14:30:42.996488] Successfully saved: /app/data/expfiles/balanced/protein/maxlfq/anova_twoway_test.csv
+
+[2025-07-08 14:30:42.996854] processing /app/data/expfiles/balanced/protein/toppep3/expdata_log.csv
+[2025-07-08 14:30:47.908503] Successfully saved: /app/data/expfiles/balanced/protein/toppep3/anova_twoway_test.csv
+
+[2025-07-08 14:30:47.909] processing /app/data/expfiles/confounded/peptide/ibaq/expdata_log.csv
+[2025-07-08 14:30:59.159781] Successfully saved: /app/data/expfiles/confounded/peptide/ibaq/anova_twoway_test.csv
+
+[2025-07-08 14:30:59.160262] processing /app/data/expfiles/confounded/peptide/maxlfq/expdata_log.csv
+[2025-07-08 14:31:11.190755] Successfully saved: /app/data/expfiles/confounded/peptide/maxlfq/anova_twoway_test.csv
+
+[2025-07-08 14:31:11.191205] processing /app/data/expfiles/confounded/peptide/toppep3/expdata_log.csv
+[2025-07-08 14:31:23.21658] Successfully saved: /app/data/expfiles/confounded/peptide/toppep3/anova_twoway_test.csv
+
+[2025-07-08 14:31:23.217135] processing /app/data/expfiles/confounded/precursor/expdata_log.csv
+[2025-07-08 14:31:36.199309] Successfully saved: /app/data/expfiles/confounded/precursor/anova_twoway_test.csv
+
+[2025-07-08 14:31:36.199751] processing /app/data/expfiles/confounded/protein/ibaq/expdata_log.csv
+[2025-07-08 14:31:45.112563] Successfully saved: /app/data/expfiles/confounded/protein/ibaq/anova_twoway_test.csv
+
+[2025-07-08 14:31:45.11298] processing /app/data/expfiles/confounded/protein/maxlfq/expdata_log.csv
+[2025-07-08 14:31:56.006923] Successfully saved: /app/data/expfiles/confounded/protein/maxlfq/anova_twoway_test.csv
+
+[2025-07-08 14:31:56.007634] processing /app/data/expfiles/confounded/protein/toppep3/expdata_log.csv
+[2025-07-08 14:32:01.467495] Successfully saved: /app/data/expfiles/confounded/protein/toppep3/anova_twoway_test.csv
